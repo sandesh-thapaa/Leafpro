@@ -1,0 +1,203 @@
+"use client";
+
+import { useEffect, useMemo } from "react";
+import { Navbar } from "@/components/public/Navbar";
+import { HeroSection } from "@/components/public/HeroSection";
+import { AboutSection } from "@/components/public/AboutSection";
+import { ServicesSection } from "@/components/public/ServicesSection";
+import { GallerySection } from "@/components/public/GallerySection";
+import { ProductsSection } from "@/components/public/ProductsSection";
+import { ContactSection } from "@/components/public/ContactSection";
+import { TextSection } from "@/components/public/TextSection";
+import { Footer } from "@/components/public/Footer";
+import type { TenantData, PageSectionConfig, SectionType } from "@/types/tenant";
+
+interface TenantPageClientProps {
+  tenant: TenantData;
+}
+
+export function TenantPageClient({ tenant }: TenantPageClientProps) {
+  const accentColor = tenant.accentColorHex || "#ed6f5c";
+
+  const waMsg = encodeURIComponent(
+    "Hi, I visited your page on Leafpro and would like to know more."
+  );
+  const waLink = tenant.routingEndpoints.whatsappActiveNumber
+    ? `https://wa.me/${tenant.routingEndpoints.whatsappActiveNumber.replace(/[^0-9]/g, "")}?text=${waMsg}`
+    : "#";
+
+  const sections = useMemo(() => {
+    const raw = tenant.sections;
+    if (raw && raw.length > 0) {
+      return raw
+        .filter((s) => s.enabled && s.sectionType)
+        .sort((a, b) => a.order - b.order);
+    }
+
+    const defaults: PageSectionConfig[] = [];
+    let order = 0;
+    defaults.push({
+      sectionType: "hero", enabled: true, order: order++,
+      layout: tenant.heroBlock.bannerImageUrl ? "split-right" : "centered",
+    });
+    if (tenant.aboutDescription) {
+      defaults.push({
+        sectionType: "about", enabled: true, order: order++,
+        layout: tenant.aboutImageUrl ? "image-right" : "text-only",
+      });
+    }
+    if (tenant.services && tenant.services.length > 0) {
+      defaults.push({
+        sectionType: "services", enabled: true, order: order++, layout: "grid",
+      });
+    }
+    if (tenant.products && tenant.products.length > 0) {
+      defaults.push({
+        sectionType: "products", enabled: true, order: order++, layout: "grid",
+      });
+    }
+    if (tenant.galleryAssets && tenant.galleryAssets.length > 0) {
+      defaults.push({
+        sectionType: "gallery", enabled: true, order: order++, layout: "grid-3",
+      });
+    }
+    if (tenant.customTexts && tenant.customTexts.length > 0) {
+      defaults.push({
+        sectionType: "text", enabled: true, order: order++, layout: "default",
+      });
+    }
+    defaults.push({
+      sectionType: "contact", enabled: true, order: order++, layout: "cards",
+    });
+    return defaults;
+  }, [tenant.sections, tenant.aboutDescription, tenant.aboutImageUrl,
+      tenant.heroBlock.bannerImageUrl, tenant.services, tenant.products,
+      tenant.galleryAssets, tenant.customTexts]);
+
+  useEffect(() => {
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    if (!reduceMotion && "IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (!entry.isIntersecting) continue;
+            (entry.target as HTMLElement).dataset.revealed = "true";
+            observer.unobserve(entry.target);
+          }
+        },
+        { rootMargin: "0px 0px -60px 0px" }
+      );
+      const elements = document.querySelectorAll(
+        "[data-reveal]:not([data-revealed])"
+      );
+      for (const el of elements) observer.observe(el);
+      return () => observer.disconnect();
+    }
+  }, []);
+
+  const renderSection = (section: PageSectionConfig) => {
+    const type = section.sectionType as SectionType;
+    const layout = section.layout;
+
+    switch (type) {
+      case "hero":
+        return (
+          <HeroSection
+            key="hero"
+            businessName={tenant.name}
+            title={tenant.heroBlock.mainTitle}
+            subtitle={tenant.heroBlock.subHeadline}
+            bannerImageUrl={tenant.heroBlock.bannerImageUrl}
+            accentColor={accentColor}
+            ctaText={tenant.heroBlock.ctaText}
+            ctaLink={waLink}
+            layout={layout as "centered" | "split-right"}
+          />
+        );
+      case "about":
+        return (
+          <AboutSection
+            key="about"
+            description={tenant.aboutDescription}
+            imageUrl={tenant.aboutImageUrl || tenant.heroBlock.bannerImageUrl}
+            accentColor={accentColor}
+            layout={layout as "text-only" | "image-right" | "image-left"}
+          />
+        );
+      case "services":
+        return (
+          <ServicesSection
+            key="services"
+            services={tenant.services}
+            accentColor={accentColor}
+            layout={layout as "grid" | "list"}
+          />
+        );
+      case "gallery":
+        return (
+          <GallerySection
+            key="gallery"
+            assets={tenant.galleryAssets}
+            accentColor={accentColor}
+            layout={layout as "grid-3" | "grid-4" | "masonry"}
+          />
+        );
+      case "products":
+        return (
+          <ProductsSection
+            key="products"
+            products={tenant.products}
+            accentColor={accentColor}
+            layout={layout as "grid" | "card-row"}
+          />
+        );
+      case "contact":
+        return (
+          <ContactSection
+            key="contact"
+            whatsappNumber={tenant.routingEndpoints.whatsappActiveNumber}
+            phoneNumber={tenant.contactPhone}
+            googleMapsUrl={tenant.routingEndpoints.googleMapsEmbedUrl}
+            facebookUrl={tenant.routingEndpoints.facebookProfileUrl}
+            instagramHandle={tenant.routingEndpoints.instagramHandle}
+            accentColor={accentColor}
+            ctaText={tenant.heroBlock.ctaText}
+            layout={layout as "cards" | "minimal"}
+          />
+        );
+      case "text":
+        return (
+          <TextSection
+            key="text"
+            texts={tenant.customTexts}
+            accentColor={accentColor}
+          />
+        );
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-paper text-ink antialiased font-sans">
+      <Navbar
+        businessName={tenant.name}
+        logoUrl={tenant.brandLogoUrl}
+        accentColor={accentColor}
+        ctaText={tenant.heroBlock.ctaText}
+        ctaLink={waLink}
+      />
+
+      <main>{sections.map(renderSection)}</main>
+
+      <Footer
+        businessName={tenant.name}
+        facebookUrl={tenant.routingEndpoints.facebookProfileUrl}
+        instagramHandle={tenant.routingEndpoints.instagramHandle}
+        accentColor={accentColor}
+      />
+    </div>
+  );
+}
