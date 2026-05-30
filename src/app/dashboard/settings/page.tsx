@@ -7,6 +7,7 @@ import { Card } from "@/components/ui/Card";
 import { useToast } from "@/components/ui/Toast";
 import { PageSpinner } from "@/components/ui/Spinner";
 import { Badge } from "@/components/ui/Badge";
+import { ImageUpload } from "@/components/dashboard/ImageUpload";
 import { THEME_PRESETS, CTA_OPTIONS, NEPALI_PHONE_REGEX } from "@/lib/constants";
 import { Check, Copy, Download, Share2, QrCode } from "lucide-react";
 import type { TenantData } from "@/types/tenant";
@@ -18,6 +19,7 @@ export default function SettingsPage() {
   const [isSaving, setIsSaving] = useState(false);
   const [copied, setCopied] = useState(false);
 
+  const [brandLogoUrl, setBrandLogoUrl] = useState("");
   const [accentColor, setAccentColor] = useState("#3b82f6");
   const [ctaText, setCtaText] = useState("Contact Us");
   const [whatsappNumber, setWhatsappNumber] = useState("");
@@ -32,6 +34,7 @@ export default function SettingsPage() {
       if (data.success) {
         const t = data.data as TenantData;
         setTenant(t);
+        setBrandLogoUrl(t.brandLogoUrl || "");
         setAccentColor(t.accentColorHex || "#3b82f6");
         setCtaText(t.heroBlock.ctaText || "Contact Us");
         setWhatsappNumber(t.routingEndpoints.whatsappActiveNumber || "");
@@ -54,6 +57,7 @@ export default function SettingsPage() {
     setIsSaving(true);
     try {
       const body: Record<string, unknown> = {
+        brandLogoUrl,
         accentColorHex: accentColor,
         routingEndpoints: {
           whatsappActiveNumber: whatsappNumber,
@@ -84,7 +88,7 @@ export default function SettingsPage() {
     } finally {
       setIsSaving(false);
     }
-  }, [accentColor, ctaText, whatsappNumber, googleMapsUrl, facebookUrl, instagramHandle, showToast]);
+  }, [brandLogoUrl, accentColor, ctaText, whatsappNumber, googleMapsUrl, facebookUrl, instagramHandle, showToast]);
 
   const copyPageUrl = async () => {
     if (!tenant) return;
@@ -168,7 +172,18 @@ export default function SettingsPage() {
             </div>
           </div>
 
-          <div>
+          <ImageUpload
+            value={brandLogoUrl}
+            onChange={setBrandLogoUrl}
+            label="Brand Logo"
+          />
+          {brandLogoUrl && (
+            <p className="text-xs text-gray-500 -mt-4">
+              Logo will replace the business name text on your page
+            </p>
+          )}
+
+            <div>
             <label className="block text-sm font-medium text-gray-700 mb-3">
               CTA Button Text
             </label>

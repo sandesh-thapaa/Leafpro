@@ -19,51 +19,55 @@ export function ProductsSection({
   const sorted = [...products].sort((a, b) => a.order - b.order);
 
   return (
-    <section className="py-24 md:py-32 px-6 lg:px-8 border-b border-paper-dark">
-      <div className="max-w-6xl mx-auto">
-        <div className="flex items-center gap-3 text-xs font-mono tracking-widest text-ink-faint mb-4">
-          <span
-            className="w-1.5 h-1.5 rounded-full"
-            style={{ backgroundColor: accentColor }}
-          />
-          <span>PRODUCTS</span>
-        </div>
-
-        <div className="max-w-lg mb-14">
-          <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-ink mb-3 font-display">
-            Our <span style={{ color: accentColor }}>products</span>
+    <section className="relative py-28 md:py-40 px-6 lg:px-8 overflow-hidden">
+      <div className="absolute inset-0 bg-gray-50" />
+      <div
+        className="absolute top-1/3 left-0 w-[500px] h-[500px] rounded-full opacity-[0.04] pointer-events-none"
+        style={{ backgroundColor: accentColor, filter: "blur(100px)" }}
+      />
+      <div className="relative max-w-7xl mx-auto">
+        <div className="text-center mb-16 md:mb-20">
+          <div
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-medium mb-6"
+            style={{ backgroundColor: `${accentColor}12`, color: accentColor }}
+          >
+            <span className="w-2 h-2 rounded-full" style={{ backgroundColor: accentColor }} />
+            Products
+          </div>
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-gray-900 leading-[1.1]">
+            Our <span style={{ color: accentColor }}>Products</span>
           </h2>
         </div>
 
         {layout === "card-row" ? (
-          <div className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-none">
+          <div className="flex gap-6 overflow-x-auto pb-6 snap-x snap-mandatory scrollbar-none">
             {sorted.map((product, index) => (
               <div
                 key={product.title + index}
-                className="min-w-[280px] max-w-[320px] bg-bone border border-paper-dark p-5 snap-start shrink-0 transition-all duration-200 hover:bg-paper"
+                className="group min-w-[300px] max-w-[340px] bg-white rounded-3xl border border-gray-100 shadow-lg shadow-gray-200/30 p-6 snap-start shrink-0 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
                 data-reveal
               >
-                <div className="aspect-square rounded overflow-hidden bg-paper-dark mb-4">
+                <div className="aspect-square rounded-2xl overflow-hidden bg-gray-100 mb-5">
                   {product.imageUrl ? (
                     <img
                       src={product.imageUrl}
                       alt={product.title}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110"
                       loading="lazy"
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center">
-                      <ShoppingBag className="h-8 w-8 text-ink-faint" />
+                      <ShoppingBag className="h-10 w-10 text-gray-300" />
                     </div>
                   )}
                 </div>
                 <div className="flex items-center justify-between gap-2 mb-2">
-                  <h3 className="text-base font-semibold text-ink truncate">
+                  <h3 className="text-xl font-bold text-gray-900 truncate">
                     {product.title}
                   </h3>
                   {product.isPopular && (
                     <span
-                      className="inline-flex items-center gap-1 text-[11px] font-mono tracking-wider px-2 py-0.5 rounded shrink-0"
+                      className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-full shrink-0"
                       style={{
                         backgroundColor: `${accentColor}15`,
                         color: accentColor,
@@ -74,12 +78,12 @@ export function ProductsSection({
                     </span>
                   )}
                 </div>
-                <p className="text-sm text-ink-mute leading-relaxed line-clamp-2">
+                <p className="text-gray-500 leading-relaxed line-clamp-2">
                   {product.description}
                 </p>
                 {product.price && (
                   <p
-                    className="mt-3 text-base font-semibold"
+                    className="mt-3 text-xl font-bold"
                     style={{ color: accentColor }}
                   >
                     {product.price}
@@ -89,34 +93,34 @@ export function ProductsSection({
             ))}
           </div>
         ) : (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-paper-dark">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {sorted.map((product, index) => (
               <div
                 key={product.title + index}
-                className="bg-bone p-6 h-full transition-all duration-200 hover:bg-paper"
+                className="group bg-white rounded-3xl border border-gray-100 shadow-lg shadow-gray-200/30 p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
                 data-reveal
               >
-                <div className="aspect-square rounded overflow-hidden bg-paper-dark mb-4">
+                <div className="aspect-square rounded-2xl overflow-hidden bg-gray-100 mb-5">
                   {product.imageUrl ? (
                     <img
                       src={product.imageUrl}
                       alt={product.title}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110"
                       loading="lazy"
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center">
-                      <ShoppingBag className="h-8 w-8 text-ink-faint" />
+                      <ShoppingBag className="h-10 w-10 text-gray-300" />
                     </div>
                   )}
                 </div>
-                <div className="flex items-center justify-between gap-2 mb-1">
-                  <h3 className="text-base font-semibold text-ink truncate">
+                <div className="flex items-center justify-between gap-2 mb-2">
+                  <h3 className="text-xl font-bold text-gray-900 truncate">
                     {product.title}
                   </h3>
                   {product.isPopular && (
                     <span
-                      className="inline-flex items-center gap-1 text-[11px] font-mono tracking-wider px-2 py-0.5 rounded shrink-0"
+                      className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-full shrink-0"
                       style={{
                         backgroundColor: `${accentColor}15`,
                         color: accentColor,
@@ -127,12 +131,12 @@ export function ProductsSection({
                     </span>
                   )}
                 </div>
-                <p className="text-sm text-ink-mute leading-relaxed">
+                <p className="text-gray-500 leading-relaxed">
                   {product.description}
                 </p>
                 {product.price && (
                   <p
-                    className="mt-3 text-base font-semibold"
+                    className="mt-3 text-xl font-bold"
                     style={{ color: accentColor }}
                   >
                     {product.price}

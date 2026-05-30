@@ -101,79 +101,88 @@ export function TenantPageClient({ tenant }: TenantPageClientProps) {
     const type = section.sectionType as SectionType;
     const layout = section.layout;
 
+    const sectionId = type;
+
     switch (type) {
       case "hero":
         return (
-          <HeroSection
-            key="hero"
-            businessName={tenant.name}
-            title={tenant.heroBlock.mainTitle}
-            subtitle={tenant.heroBlock.subHeadline}
-            bannerImageUrl={tenant.heroBlock.bannerImageUrl}
-            accentColor={accentColor}
-            ctaText={tenant.heroBlock.ctaText}
-            ctaLink={waLink}
-            layout={layout as "centered" | "split-right"}
-          />
+          <section key="hero" id="hero">
+            <HeroSection
+              businessName={tenant.name}
+              title={tenant.heroBlock.mainTitle}
+              subtitle={tenant.heroBlock.subHeadline}
+              bannerImageUrl={tenant.heroBlock.bannerImageUrl}
+              accentColor={accentColor}
+              ctaText={tenant.heroBlock.ctaText}
+              ctaLink={waLink}
+              layout={layout as "centered" | "split-right"}
+            />
+          </section>
         );
       case "about":
         return (
-          <AboutSection
-            key="about"
-            description={tenant.aboutDescription}
-            imageUrl={tenant.aboutImageUrl || tenant.heroBlock.bannerImageUrl}
-            accentColor={accentColor}
-            layout={layout as "text-only" | "image-right" | "image-left"}
-          />
+          <section key="about" id="about">
+            <AboutSection
+              description={tenant.aboutDescription}
+              imageUrl={tenant.aboutImageUrl || tenant.heroBlock.bannerImageUrl}
+              accentColor={accentColor}
+              layout={layout as "text-only" | "image-right" | "image-left"}
+            />
+          </section>
         );
       case "services":
         return (
-          <ServicesSection
-            key="services"
-            services={tenant.services}
-            accentColor={accentColor}
-            layout={layout as "grid" | "list"}
-          />
+          <section key="services" id="services">
+            <ServicesSection
+              services={tenant.services}
+              accentColor={accentColor}
+              layout={layout as "grid" | "list"}
+            />
+          </section>
         );
       case "gallery":
         return (
-          <GallerySection
-            key="gallery"
-            assets={tenant.galleryAssets}
-            accentColor={accentColor}
-            layout={layout as "grid-3" | "grid-4" | "masonry"}
-          />
+          <section key="gallery" id="gallery">
+            <GallerySection
+              assets={tenant.galleryAssets}
+              accentColor={accentColor}
+              layout={layout as "grid-3" | "grid-4" | "masonry"}
+            />
+          </section>
         );
       case "products":
         return (
-          <ProductsSection
-            key="products"
-            products={tenant.products}
-            accentColor={accentColor}
-            layout={layout as "grid" | "card-row"}
-          />
+          <section key="products" id="products">
+            <ProductsSection
+              products={tenant.products}
+              accentColor={accentColor}
+              layout={layout as "grid" | "card-row"}
+            />
+          </section>
         );
       case "contact":
         return (
-          <ContactSection
-            key="contact"
-            whatsappNumber={tenant.routingEndpoints.whatsappActiveNumber}
-            phoneNumber={tenant.contactPhone}
-            googleMapsUrl={tenant.routingEndpoints.googleMapsEmbedUrl}
-            facebookUrl={tenant.routingEndpoints.facebookProfileUrl}
-            instagramHandle={tenant.routingEndpoints.instagramHandle}
-            accentColor={accentColor}
-            ctaText={tenant.heroBlock.ctaText}
-            layout={layout as "cards" | "minimal"}
-          />
+          <section key="contact" id="contact">
+            <ContactSection
+              whatsappNumber={tenant.routingEndpoints.whatsappActiveNumber}
+              phoneNumber={tenant.contactPhone}
+              googleMapsUrl={tenant.routingEndpoints.googleMapsEmbedUrl}
+              facebookUrl={tenant.routingEndpoints.facebookProfileUrl}
+              instagramHandle={tenant.routingEndpoints.instagramHandle}
+              accentColor={accentColor}
+              ctaText={tenant.heroBlock.ctaText}
+              layout={layout as "cards" | "minimal"}
+            />
+          </section>
         );
       case "text":
         return (
-          <TextSection
-            key="text"
-            texts={tenant.customTexts}
-            accentColor={accentColor}
-          />
+          <section key="text" id={sectionId}>
+            <TextSection
+              texts={tenant.customTexts}
+              accentColor={accentColor}
+            />
+          </section>
         );
       default:
         return null;
@@ -188,15 +197,19 @@ export function TenantPageClient({ tenant }: TenantPageClientProps) {
         accentColor={accentColor}
         ctaText={tenant.heroBlock.ctaText}
         ctaLink={waLink}
+        sections={sections}
       />
 
       <main>{sections.map(renderSection)}</main>
 
       <Footer
         businessName={tenant.name}
+        logoUrl={tenant.brandLogoUrl}
         facebookUrl={tenant.routingEndpoints.facebookProfileUrl}
         instagramHandle={tenant.routingEndpoints.instagramHandle}
+        whatsappNumber={tenant.routingEndpoints.whatsappActiveNumber}
         accentColor={accentColor}
+        ctaText={tenant.heroBlock.ctaText}
       />
     </div>
   );

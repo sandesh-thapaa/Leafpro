@@ -45,6 +45,10 @@ export async function proxy(request: NextRequest) {
     if (isPublicDashboard) return NextResponse.next();
   }
 
+  if (!isApiRoute && !isDashboardRoute) {
+    return NextResponse.next();
+  }
+
   const token =
     request.cookies.get(AUTH.COOKIE_NAME)?.value ??
     request.headers.get("Authorization")?.replace("Bearer ", "");

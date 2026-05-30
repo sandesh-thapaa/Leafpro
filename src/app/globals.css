@@ -28,6 +28,8 @@
   --color-coral-soft: var(--coral-soft);
   --color-mustard: var(--mustard);
   --color-olive: var(--olive);
+  --color-brand: #00D1C1;
+  --color-brand-dark: #0A192F;
   --font-sans: "Inter", system-ui, -apple-system, sans-serif;
   --font-display: "Inter Tight", "Inter", system-ui, -apple-system, sans-serif;
   --font-mono: "JetBrains Mono", monospace;

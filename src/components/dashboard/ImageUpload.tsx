@@ -105,11 +105,11 @@ export function ImageUpload({ value, onChange, label }: ImageUploadProps) {
           onDrop={handleDrop}
           onClick={() => fileInputRef.current?.click()}
           className={`
-            relative border-2 border-dashed rounded p-8 text-center cursor-pointer
+            relative border-2 border-dashed rounded-lg p-8 text-center cursor-pointer
             transition-all duration-200
             ${isDragging
               ? "border-coral bg-coral/5"
-              : "border-paper-dark hover:border-coral/50 hover:bg-bone/50"
+              : "border-gray-300 bg-white hover:border-coral/50 hover:bg-coral/5"
             }
           `}
         >
@@ -123,17 +123,17 @@ export function ImageUpload({ value, onChange, label }: ImageUploadProps) {
           {isUploading ? (
             <div className="flex flex-col items-center gap-2">
               <Loader2 className="h-6 w-6 text-coral animate-spin" />
-              <p className="text-sm text-ink-mute">Uploading...</p>
+              <p className="text-sm text-gray-500">Uploading...</p>
             </div>
           ) : (
             <div className="flex flex-col items-center gap-2">
-              <div className="w-10 h-10 rounded bg-bone border border-paper-dark flex items-center justify-center">
-                <ImageIcon className="h-5 w-5 text-ink-faint" />
+              <div className="w-10 h-10 rounded-lg bg-gray-50 border border-gray-200 flex items-center justify-center">
+                <ImageIcon className="h-5 w-5 text-gray-400" />
               </div>
-              <p className="text-sm text-ink-mute">
+              <p className="text-sm text-gray-500">
                 {isDragging ? "Drop image here" : "Click or drag to upload"}
               </p>
-              <p className="text-xs text-ink-faint">
+              <p className="text-xs text-gray-400">
                 JPEG, PNG, WebP &bull; Max 10MB
               </p>
             </div>

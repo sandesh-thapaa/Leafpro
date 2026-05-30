@@ -125,7 +125,7 @@ function FaqItem({
         onClick={onToggle}
         className="w-full flex items-center justify-between text-left gap-4 group"
       >
-        <span className="text-base font-medium text-ink group-hover:text-coral transition-colors">
+        <span className="text-base font-medium text-ink group-hover:text-brand transition-colors">
           {question}
         </span>
         {open ? (
@@ -148,8 +148,8 @@ function FaqItem({
 function GradientMesh() {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      <div className="absolute -top-48 -right-48 w-[600px] h-[600px] rounded-full bg-coral/8 blur-[140px]" />
-      <div className="absolute -bottom-48 -left-48 w-[600px] h-[600px] rounded-full bg-coral/5 blur-[140px]" />
+      <div className="absolute -top-48 -right-48 w-[600px] h-[600px] rounded-full bg-brand/8 blur-[140px]" />
+      <div className="absolute -bottom-48 -left-48 w-[600px] h-[600px] rounded-full bg-brand/5 blur-[140px]" />
       <div className="absolute top-1/3 left-1/4 w-[500px] h-[500px] rounded-full bg-mustard/5 blur-[120px]" />
     </div>
   );
@@ -223,7 +223,7 @@ export default function LandingPage() {
                 href={WHATSAPP_LINK}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded text-sm font-semibold tracking-wider bg-ink text-bone hover:bg-ink-soft transition-all duration-200 active:scale-[0.97]"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded text-sm font-semibold tracking-wider bg-brand-dark text-white hover:bg-brand-dark/90 transition-all duration-200 active:scale-[0.97]"
               >
                 Create Page
                 <ArrowRight className="h-3.5 w-3.5" />
@@ -235,7 +235,7 @@ export default function LandingPage() {
 
       <main>
         {/* ───── HERO ───── */}
-        <section className="relative min-h-[90vh] flex items-center bg-bone overflow-hidden">
+        <section className="relative min-h-[90vh] flex items-center overflow-hidden">
           <div className="absolute inset-0 border-b border-paper-dark pointer-events-none" />
           <div className="relative w-full pt-28 pb-16 md:pt-36 md:pb-24">
             <div className="max-w-6xl mx-auto px-6 lg:px-8">
@@ -243,13 +243,13 @@ export default function LandingPage() {
                 {/* Left: Text */}
                 <div className="flex-1 max-w-xl shrink-0" data-reveal>
                   <div className="flex items-center gap-3 text-xs font-mono tracking-widest text-ink-faint mb-8">
-                    <span className="w-1.5 h-1.5 rounded-full bg-coral" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-brand" />
                     <span>LEAFPRO &mdash; VOL. 01 / ISSUE N&ordm; 01</span>
                   </div>
 
                   <h1 className="text-[clamp(2.5rem,5.5vw,4.5rem)] font-bold tracking-tight text-ink leading-[1.04] mb-5 font-display">
                     Your business, online{" "}
-                    <span className="text-coral">in seconds</span>
+                    <span className="text-brand">in seconds</span>
                   </h1>
 
                   <p className="text-base text-ink-mute max-w-md leading-relaxed mb-9">
@@ -263,7 +263,7 @@ export default function LandingPage() {
                       href={WHATSAPP_LINK}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded bg-coral text-bone text-sm font-semibold tracking-wide transition-all duration-200 hover:brightness-110 active:scale-[0.97]"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded bg-brand text-bone text-sm font-semibold tracking-wide transition-all duration-200 hover:brightness-110 active:scale-[0.97]"
                     >
                       <MessageCircle className="h-4 w-4" />
                       Start on WhatsApp
@@ -286,13 +286,13 @@ export default function LandingPage() {
                 {/* Right: Preview Visual */}
                 <div className="hidden lg:block flex-1 min-w-0" data-reveal="right">
                   <div className="relative">
-                    <div className="absolute -inset-4 bg-coral/8 blur-[80px] rounded-full" />
+                    <div className="absolute -inset-4 bg-brand/8 blur-[80px] rounded-full" />
                     <div className="relative rounded-xl overflow-hidden border border-paper-dark shadow-xl shadow-black/5">
                       <div className="bg-gradient-to-br from-paper-warm via-paper to-paper-warm p-0.5">
                         <div className="bg-bone rounded-lg overflow-hidden">
                           {/* Browser bar */}
                           <div className="flex items-center gap-1.5 px-4 py-2.5 border-b border-paper-dark">
-                            <div className="w-2.5 h-2.5 rounded-full bg-coral/60" />
+                            <div className="w-2.5 h-2.5 rounded-full bg-brand/60" />
                             <div className="w-2.5 h-2.5 rounded-full bg-mustard/60" />
                             <div className="w-2.5 h-2.5 rounded-full bg-olive/60" />
                             <div className="flex-1 flex justify-center">
@@ -313,7 +313,7 @@ export default function LandingPage() {
                             <div className="h-5 w-3/4 rounded bg-paper-dark mb-4" />
                             <div className="h-5 w-1/2 rounded bg-paper-dark mb-6" />
                             <div className="flex gap-2 mb-8">
-                              <div className="h-8 w-24 rounded bg-coral/40" />
+                              <div className="h-8 w-24 rounded bg-brand/40" />
                               <div className="h-8 w-24 rounded bg-paper-dark" />
                             </div>
                             <div className="grid grid-cols-3 gap-2">
@@ -331,7 +331,7 @@ export default function LandingPage() {
                         </div>
                       </div>
                     </div>
-                    <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-3/4 h-16 bg-coral/10 blur-[60px] rounded-full" />
+                    <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-3/4 h-16 bg-brand/10 blur-[60px] rounded-full" />
                   </div>
                 </div>
               </div>
@@ -350,7 +350,7 @@ export default function LandingPage() {
             <div className="max-w-lg mb-16" data-reveal>
               <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-ink mb-3 font-display">
                 From message to{" "}
-                <span className="text-coral">live page</span>
+                <span className="text-brand">live page</span>
               </h2>
               <p className="text-base text-ink-mute leading-relaxed">
                 Three steps. No signup. No code. Under 30 seconds.
@@ -360,7 +360,7 @@ export default function LandingPage() {
             <div className="grid md:grid-cols-3 gap-14">
               {steps.map((step) => (
                 <div key={step.n} data-reveal>
-                  <span className="text-sm font-mono tracking-widest text-coral mb-4 block">
+                  <span className="text-sm font-mono tracking-widest text-brand mb-4 block">
                     {step.n}
                   </span>
                   <h3 className="text-lg font-semibold text-ink mb-2">
@@ -386,7 +386,7 @@ export default function LandingPage() {
             <div className="max-w-lg mb-16" data-reveal>
               <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-ink mb-3 font-display">
                 Everything{" "}
-                <span className="text-coral">you need</span>
+                <span className="text-brand">you need</span>
               </h2>
               <p className="text-base text-ink-mute leading-relaxed">
                 Premium features designed for Nepali businesses.
@@ -426,7 +426,7 @@ export default function LandingPage() {
             <div className="max-w-lg mb-16" data-reveal>
               <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-ink mb-3 font-display">
                 What business owners{" "}
-                <span className="text-coral">say</span>
+                <span className="text-brand">say</span>
               </h2>
               <p className="text-base text-ink-mute leading-relaxed">
                 Real feedback from Nepali entrepreneurs using Leafpro.
@@ -462,7 +462,7 @@ export default function LandingPage() {
             <div className="max-w-lg mb-16" data-reveal>
               <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-ink mb-3 font-display">
                 What happens when you{" "}
-                <span className="text-coral">text us</span>
+                <span className="text-brand">text us</span>
               </h2>
               <p className="text-base text-ink-mute leading-relaxed">
                 Fully automated. From WhatsApp to live page in seconds.
@@ -472,7 +472,7 @@ export default function LandingPage() {
             <div className="grid md:grid-cols-4 gap-10">
               {flow.map((step) => (
                 <div key={step.n} data-reveal>
-                  <span className="text-sm font-mono tracking-widest text-coral mb-4 block">
+                  <span className="text-sm font-mono tracking-widest text-brand mb-4 block">
                     {step.n}
                   </span>
                   <h3 className="text-lg font-semibold text-ink mb-2">
@@ -498,7 +498,7 @@ export default function LandingPage() {
             <div className="max-w-lg mb-12" data-reveal>
               <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-ink mb-3 font-display">
                 Questions &{" "}
-                <span className="text-coral">answers</span>
+                <span className="text-brand">answers</span>
               </h2>
               <p className="text-base text-ink-mute">
                 Straight answers. No fluff.
@@ -521,19 +521,19 @@ export default function LandingPage() {
         </section>
 
         {/* ───── CTA ───── */}
-        <section className="py-24 md:py-32 px-6 lg:px-8 bg-bone">
+        <section className="py-24 md:py-32 px-6 lg:px-8 bg-brand-dark">
           <div className="max-w-6xl mx-auto">
-            <div className="flex items-center justify-between text-xs font-mono tracking-widest text-ink-faint mb-8 pb-5 border-b border-paper-dark">
-              <span><span className="text-ink">VI.</span> Start</span>
+            <div className="flex items-center justify-between text-xs font-mono tracking-widest text-white/30 mb-8 pb-5 border-b border-white/10">
+              <span><span className="text-white/60">VII.</span> Start</span>
               <span className="tabular-nums">007 / 007</span>
             </div>
 
             <div className="max-w-2xl" data-reveal>
-              <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-ink mb-3 font-display">
+              <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-white mb-3 font-display">
                 Get your page{" "}
-                <span className="text-coral">right now</span>.
+                <span className="text-brand">right now</span>.
               </h2>
-              <p className="text-base text-ink-mute mb-9 max-w-md leading-relaxed">
+              <p className="text-base text-white/60 mb-9 max-w-md leading-relaxed">
                 Send a WhatsApp message. Your page will be ready before you
                 finish reading this sentence.
               </p>
@@ -541,7 +541,7 @@ export default function LandingPage() {
                 href={WHATSAPP_LINK}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded bg-coral text-bone text-sm font-semibold tracking-wide transition-all duration-200 hover:brightness-110 active:scale-[0.97]"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded bg-brand text-brand-dark text-sm font-semibold tracking-wide transition-all duration-200 hover:brightness-110 active:scale-[0.97]"
               >
                 <MessageCircle className="h-4 w-4" />
                 Start on WhatsApp
@@ -553,9 +553,9 @@ export default function LandingPage() {
       </main>
 
       {/* ───── FOOTER ───── */}
-      <footer className="border-t border-paper-dark bg-paper py-16 px-6 lg:px-8">
+      <footer className="border-t border-white/10 bg-brand-dark py-16 px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
-          <div className="flex items-center justify-between text-xs font-mono tracking-widest text-ink-faint mb-12 pb-6 border-b border-paper-dark">
+          <div className="flex items-center justify-between text-xs font-mono tracking-widest text-white/30 mb-12 pb-6 border-b border-white/10">
             <span>Leafpro &mdash; Vol. 01 / Issue N&ordm; 01</span>
             <span className="tabular-nums">FIN.</span>
           </div>
@@ -563,50 +563,50 @@ export default function LandingPage() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
             <div>
               <div className="flex items-center gap-3 mb-4">
-                <img src="/Logo.png" alt={APP_NAME} className="h-10 w-auto rounded" />
-                <span className="text-lg font-semibold tracking-tight text-ink">{APP_NAME}</span>
+                <img src="/Logo.png" alt={APP_NAME} className="h-10 w-auto rounded brightness-0 invert" />
+                <span className="text-lg font-semibold tracking-tight text-white">{APP_NAME}</span>
               </div>
-              <p className="text-base text-ink-mute leading-relaxed max-w-xs">
+              <p className="text-base text-white/50 leading-relaxed max-w-xs">
                 The instant landing page platform for Nepali businesses. Text and go live in seconds.
               </p>
             </div>
 
             <div>
-              <h4 className="text-xs font-mono tracking-widest text-ink-faint mb-4 uppercase">Product</h4>
+              <h4 className="text-xs font-mono tracking-widest text-white/40 mb-4 uppercase">Product</h4>
               <ul className="space-y-2.5">
-                <li><a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="text-sm text-ink-mute hover:text-ink transition-colors">Create Page</a></li>
-                <li><a href="/dashboard/login" className="text-sm text-ink-mute hover:text-ink transition-colors">Dashboard</a></li>
-                <li><a href="#" className="text-sm text-ink-mute hover:text-ink transition-colors">Pricing</a></li>
-                <li><a href="#" className="text-sm text-ink-mute hover:text-ink transition-colors">FAQ</a></li>
+                <li><a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="text-sm text-white/60 hover:text-white transition-colors">Create Page</a></li>
+                <li><a href="/dashboard/login" className="text-sm text-white/60 hover:text-white transition-colors">Dashboard</a></li>
+                <li><a href="#" className="text-sm text-white/60 hover:text-white transition-colors">Pricing</a></li>
+                <li><a href="#" className="text-sm text-white/60 hover:text-white transition-colors">FAQ</a></li>
               </ul>
             </div>
 
             <div>
-              <h4 className="text-xs font-mono tracking-widest text-ink-faint mb-4 uppercase">Company</h4>
+              <h4 className="text-xs font-mono tracking-widest text-white/40 mb-4 uppercase">Company</h4>
               <ul className="space-y-2.5">
-                <li><span className="text-sm text-ink-mute">Made in Nepal</span></li>
-                <li><a href="#" className="text-sm text-ink-mute hover:text-ink transition-colors">Privacy Policy</a></li>
-                <li><a href="#" className="text-sm text-ink-mute hover:text-ink transition-colors">Terms of Service</a></li>
-                <li><span className="text-sm text-ink-mute">{COORDS}</span></li>
+                <li><span className="text-sm text-white/60">Made in Nepal</span></li>
+                <li><a href="#" className="text-sm text-white/60 hover:text-white transition-colors">Privacy Policy</a></li>
+                <li><a href="#" className="text-sm text-white/60 hover:text-white transition-colors">Terms of Service</a></li>
+                <li><span className="text-sm text-white/60">{COORDS}</span></li>
               </ul>
             </div>
 
             <div>
-              <h4 className="text-xs font-mono tracking-widest text-ink-faint mb-4 uppercase">Connect</h4>
+              <h4 className="text-xs font-mono tracking-widest text-white/40 mb-4 uppercase">Connect</h4>
               <ul className="space-y-2.5">
-                <li><a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="text-sm text-ink-mute hover:text-ink transition-colors">WhatsApp</a></li>
-                <li><a href="#" className="text-sm text-ink-mute hover:text-ink transition-colors">Email</a></li>
-                <li><a href="#" className="text-sm text-ink-mute hover:text-ink transition-colors">Instagram</a></li>
-                <li><a href="#" className="text-sm text-ink-mute hover:text-ink transition-colors">Facebook</a></li>
+                <li><a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="text-sm text-white/60 hover:text-white transition-colors">WhatsApp</a></li>
+                <li><a href="#" className="text-sm text-white/60 hover:text-white transition-colors">Email</a></li>
+                <li><a href="#" className="text-sm text-white/60 hover:text-white transition-colors">Instagram</a></li>
+                <li><a href="#" className="text-sm text-white/60 hover:text-white transition-colors">Facebook</a></li>
               </ul>
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-6 border-t border-paper-dark">
-            <p className="text-xs font-mono tracking-wider text-ink-faint">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-6 border-t border-white/10">
+            <p className="text-xs font-mono tracking-wider text-white/40">
               &copy; {new Date().getFullYear()} {APP_NAME}. All rights reserved.
             </p>
-            <p className="text-xs font-mono tracking-wider text-ink-faint">
+            <p className="text-xs font-mono tracking-wider text-white/40">
               Built with care &middot; For Nepali businesses everywhere
             </p>
           </div>
