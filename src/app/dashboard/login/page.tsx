@@ -66,6 +66,7 @@ export default function LoginPage() {
               src="/Logo.png"
               alt={APP_NAME}
               fill
+              sizes="56px"
               className="object-contain"
             />
           </div>

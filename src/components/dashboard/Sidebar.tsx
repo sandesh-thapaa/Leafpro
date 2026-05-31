@@ -76,6 +76,7 @@ export function Sidebar({ businessName, slug, role }: SidebarProps) {
                 src="/Logo.png"
                 alt="Leafpro"
                 fill
+                sizes="32px"
                 className="object-contain rounded"
               />
             </div>
