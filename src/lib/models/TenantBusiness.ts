@@ -57,6 +57,11 @@ export interface IRoutingEndpoints {
   googleMapsEmbedUrl: string;
   facebookProfileUrl: string;
   instagramHandle: string;
+  tiktokUrl: string;
+  linkedInUrl: string;
+  youtubeUrl: string;
+  twitterHandle: string;
+  telegramHandle: string;
 }
 
 export interface ITenantBusiness extends Document {
@@ -135,6 +140,11 @@ const RoutingEndpointsSchema = new Schema<IRoutingEndpoints>(
     googleMapsEmbedUrl: { type: String, default: "" },
     facebookProfileUrl: { type: String, default: "" },
     instagramHandle: { type: String, default: "" },
+    tiktokUrl: { type: String, default: "" },
+    linkedInUrl: { type: String, default: "" },
+    youtubeUrl: { type: String, default: "" },
+    twitterHandle: { type: String, default: "" },
+    telegramHandle: { type: String, default: "" },
   },
   { _id: false }
 );

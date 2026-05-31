@@ -16,8 +16,25 @@ export async function GET(request: NextRequest) {
 
   await connectDB();
 
-  const businesses = await TenantBusiness.find({})
-    .select("name slug contactPhone accountStatus createdAt")
+  const { searchParams } = new URL(request.url);
+  const search = searchParams.get("search") || "";
+  const status = searchParams.get("status") || "";
+
+  const filter: Record<string, unknown> = {};
+
+  if (status === "active" || status === "suspended") {
+    filter.accountStatus = status;
+  }
+
+  if (search) {
+    filter.$or = [
+      { name: { $regex: search, $options: "i" } },
+      { contactPhone: { $regex: search, $options: "i" } },
+    ];
+  }
+
+  const businesses = await TenantBusiness.find(filter)
+    .select("name slug contactPhone accountStatus createdAt updatedAt pageViewCount galleryAssets")
     .sort({ createdAt: -1 })
     .lean();
 
@@ -26,10 +43,10 @@ export async function GET(request: NextRequest) {
     .lean();
 
   const authMap = new Map(
-    authRecords.map((a) => [a.associatedBusinessId.toString(), a])
+    authRecords.map((a: any) => [a.associatedBusinessId.toString(), a])
   );
 
-  const tenants = businesses.map((b) => {
+  const tenants = businesses.map((b: any) => {
     const auth = authMap.get(b._id.toString());
     return {
       _id: b._id,
@@ -39,6 +56,9 @@ export async function GET(request: NextRequest) {
       role: auth?.role ?? "business_owner",
       accountStatus: b.accountStatus,
       createdAt: b.createdAt,
+      updatedAt: b.updatedAt,
+      pageViewCount: b.pageViewCount ?? 0,
+      galleryCount: (b.galleryAssets || []).length ?? 0,
     };
   });
 

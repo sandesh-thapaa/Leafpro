@@ -169,6 +169,11 @@ export function TenantPageClient({ tenant }: TenantPageClientProps) {
               googleMapsUrl={tenant.routingEndpoints.googleMapsEmbedUrl}
               facebookUrl={tenant.routingEndpoints.facebookProfileUrl}
               instagramHandle={tenant.routingEndpoints.instagramHandle}
+              tiktokUrl={tenant.routingEndpoints.tiktokUrl}
+              linkedInUrl={tenant.routingEndpoints.linkedInUrl}
+              youtubeUrl={tenant.routingEndpoints.youtubeUrl}
+              twitterHandle={tenant.routingEndpoints.twitterHandle}
+              telegramHandle={tenant.routingEndpoints.telegramHandle}
               accentColor={accentColor}
               ctaText={tenant.heroBlock.ctaText}
               layout={layout as "cards" | "minimal"}
@@ -207,6 +212,11 @@ export function TenantPageClient({ tenant }: TenantPageClientProps) {
         logoUrl={tenant.brandLogoUrl}
         facebookUrl={tenant.routingEndpoints.facebookProfileUrl}
         instagramHandle={tenant.routingEndpoints.instagramHandle}
+        tiktokUrl={tenant.routingEndpoints.tiktokUrl}
+        linkedInUrl={tenant.routingEndpoints.linkedInUrl}
+        youtubeUrl={tenant.routingEndpoints.youtubeUrl}
+        twitterHandle={tenant.routingEndpoints.twitterHandle}
+        telegramHandle={tenant.routingEndpoints.telegramHandle}
         whatsappNumber={tenant.routingEndpoints.whatsappActiveNumber}
         accentColor={accentColor}
         ctaText={tenant.heroBlock.ctaText}

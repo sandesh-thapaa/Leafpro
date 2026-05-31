@@ -92,6 +92,16 @@ export async function PATCH(request: NextRequest) {
       if (endpoints.instagramHandle !== undefined)
         updateData["routingEndpoints.instagramHandle"] =
           endpoints.instagramHandle;
+      if (endpoints.tiktokUrl !== undefined)
+        updateData["routingEndpoints.tiktokUrl"] = endpoints.tiktokUrl;
+      if (endpoints.linkedInUrl !== undefined)
+        updateData["routingEndpoints.linkedInUrl"] = endpoints.linkedInUrl;
+      if (endpoints.youtubeUrl !== undefined)
+        updateData["routingEndpoints.youtubeUrl"] = endpoints.youtubeUrl;
+      if (endpoints.twitterHandle !== undefined)
+        updateData["routingEndpoints.twitterHandle"] = endpoints.twitterHandle;
+      if (endpoints.telegramHandle !== undefined)
+        updateData["routingEndpoints.telegramHandle"] = endpoints.telegramHandle;
     }
 
     await connectDB();

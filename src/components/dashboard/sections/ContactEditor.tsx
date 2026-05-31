@@ -42,6 +42,36 @@ export function ContactEditor({ data, onChange }: ContactEditorProps) {
         onChange={(e) => onChange("routingEndpoints.instagramHandle", e.target.value)}
         placeholder="@yourhandle"
       />
+      <Input
+        label="TikTok URL"
+        value={data.routingEndpoints.tiktokUrl}
+        onChange={(e) => onChange("routingEndpoints.tiktokUrl", e.target.value)}
+        placeholder="https://tiktok.com/@yourhandle"
+      />
+      <Input
+        label="LinkedIn URL"
+        value={data.routingEndpoints.linkedInUrl}
+        onChange={(e) => onChange("routingEndpoints.linkedInUrl", e.target.value)}
+        placeholder="https://linkedin.com/in/yourprofile"
+      />
+      <Input
+        label="YouTube URL"
+        value={data.routingEndpoints.youtubeUrl}
+        onChange={(e) => onChange("routingEndpoints.youtubeUrl", e.target.value)}
+        placeholder="https://youtube.com/@yourchannel"
+      />
+      <Input
+        label="Twitter / X Handle"
+        value={data.routingEndpoints.twitterHandle}
+        onChange={(e) => onChange("routingEndpoints.twitterHandle", e.target.value)}
+        placeholder="@yourhandle"
+      />
+      <Input
+        label="Telegram URL"
+        value={data.routingEndpoints.telegramHandle}
+        onChange={(e) => onChange("routingEndpoints.telegramHandle", e.target.value)}
+        placeholder="https://t.me/yourusername"
+      />
     </div>
   );
 }

@@ -98,6 +98,14 @@ export default function LoginPage() {
               required
               autoComplete="current-password"
             />
+            <div className="flex justify-end -mt-2">
+              <a
+                href="/forgot-password"
+                className="text-xs text-coral hover:text-coral/80 font-medium transition-colors"
+              >
+                Forgot Password?
+              </a>
+            </div>
             <Button type="submit" fullWidth size="lg" isLoading={isLoading}>
               Sign In
             </Button>

@@ -36,6 +36,10 @@ yarn-error.log*
 CLAUDE.md
 AGENTS.md
 
+# opencode
+.opencode/
+opencode.json
+
 # vercel
 .vercel
 # typescript

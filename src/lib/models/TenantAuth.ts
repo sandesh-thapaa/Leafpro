@@ -8,6 +8,7 @@ export interface ITenantAuth extends Document {
   secureHashValue: string;
   role: AuthRole;
   passwordResetEnforced: boolean;
+  passwordResetRequested: boolean;
   lastLoginAt: Date | null;
   loginAttempts: number;
   lockedUntil: Date | null;
@@ -34,6 +35,7 @@ const TenantAuthSchema = new Schema<ITenantAuth>(
       default: "business_owner",
     },
     passwordResetEnforced: { type: Boolean, default: true },
+    passwordResetRequested: { type: Boolean, default: false },
     lastLoginAt: { type: Date, default: null },
     loginAttempts: { type: Number, default: 0 },
     lockedUntil: { type: Date, default: null },

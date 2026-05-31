@@ -38,10 +38,10 @@ export function GallerySection({
 
   const gridCols =
     layout === "grid-4"
-      ? "grid-cols-2 md:grid-cols-4"
+      ? "grid-cols-1 md:grid-cols-4"
       : layout === "masonry"
-      ? "grid-cols-2 md:grid-cols-3"
-      : "grid-cols-2 md:grid-cols-3";
+      ? "grid-cols-1 md:grid-cols-3"
+      : "grid-cols-1 md:grid-cols-3";
 
   return (
     <section className="relative py-28 md:py-40 px-6 lg:px-8 overflow-hidden">

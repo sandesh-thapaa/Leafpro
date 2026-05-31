@@ -13,6 +13,7 @@ import { TextEditor } from "./sections/TextEditor";
 import {
   Save,
   Eye,
+  EyeOff,
   Plus,
   Trash2,
   ChevronDown,
@@ -25,6 +26,7 @@ import type {
   SectionType,
 } from "@/types/tenant";
 import { SECTION_LABELS, SECTION_LAYOUTS } from "@/types/tenant";
+import { Modal } from "@/components/ui/Modal";
 
 function getDefaultSections(data: TenantData): PageSectionConfig[] {
   const sections: PageSectionConfig[] = [];
@@ -112,6 +114,7 @@ export function PageBuilder({ tenant, onSave }: PageBuilderProps) {
   });
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [isSaving, setIsSaving] = useState(false);
+  const [deleteConfirm, setDeleteConfirm] = useState<{ id: string; label: string } | null>(null);
 
   const currentSections = sections.filter((s) => s.sectionType);
 
@@ -149,13 +152,70 @@ export function PageBuilder({ tenant, onSave }: PageBuilderProps) {
     );
   };
 
-  const removeSection = (id: string) => {
+  const hideSection = (id: string) => {
+    setSections((prev) =>
+      prev.map((s) =>
+        (s._id || s.sectionType + s.order) === id
+          ? { ...s, enabled: false }
+          : s
+      )
+    );
+  };
+
+  const unhideSection = (id: string) => {
+    setSections((prev) =>
+      prev.map((s) =>
+        (s._id || s.sectionType + s.order) === id
+          ? { ...s, enabled: true }
+          : s
+      )
+    );
+  };
+
+  const executeDelete = () => {
+    if (!deleteConfirm) return;
+    const { id } = deleteConfirm;
+
+    const section = sections.find(
+      (s) => (s._id || s.sectionType + s.order) === id
+    );
+
     setSections((prev) => {
       const filtered = prev.filter(
         (s) => (s._id || s.sectionType + s.order) !== id
       );
       return filtered.map((s, i) => ({ ...s, order: i }));
     });
+
+    if (section) {
+      const type = section.sectionType;
+      if (type === "services") {
+        setData((prev) => ({ ...prev, services: [] }));
+      } else if (type === "products") {
+        setData((prev) => ({ ...prev, products: [] }));
+      } else if (type === "gallery") {
+        setData((prev) => ({ ...prev, galleryAssets: [] }));
+      } else if (type === "text") {
+        const textSections = sections.filter((s) => s.sectionType === "text");
+        const textIndex = textSections.findIndex(
+          (s) => (s._id || s.sectionType + s.order) === id
+        );
+        if (textIndex >= 0) {
+          setData((prev) => ({
+            ...prev,
+            customTexts: prev.customTexts.filter((_, i) => i !== textIndex),
+          }));
+        }
+      } else if (type === "about") {
+        setData((prev) => ({
+          ...prev,
+          aboutDescription: "",
+          aboutImageUrl: "",
+        }));
+      }
+    }
+
+    setDeleteConfirm(null);
   };
 
   const moveSection = (id: string, direction: "up" | "down") => {
@@ -292,19 +352,12 @@ export function PageBuilder({ tenant, onSave }: PageBuilderProps) {
                   <GripVertical className="h-4 w-4" />
                 </div>
                 <div className="flex items-center gap-2 min-w-0 flex-1">
-                  <label className="flex items-center gap-2 cursor-pointer shrink-0">
-                    <input
-                      type="checkbox"
-                      checked={section.enabled}
-                      onChange={(e) =>
-                        updateSection(id, { enabled: e.target.checked })
-                      }
-                      className="rounded border-paper-dark text-coral focus:ring-coral/30"
-                    />
-                  </label>
-                  <span className="text-sm font-medium text-ink truncate">
+                  <span className={`text-sm font-medium truncate ${section.enabled ? "text-ink" : "text-ink-faint line-through"}`}>
                     {label}
                   </span>
+                  {!section.enabled && (
+                    <span className="text-xs text-amber-500 font-medium shrink-0">Hidden</span>
+                  )}
                 </div>
 
                 {layouts.length > 0 && (
@@ -340,13 +393,41 @@ export function PageBuilder({ tenant, onSave }: PageBuilderProps) {
                   </button>
                 </div>
 
-                <button
-                  onClick={() => removeSection(id)}
-                  className="p-1.5 rounded text-red-400 hover:text-red-600 hover:bg-red-50 transition-all"
-                  aria-label="Remove section"
-                >
-                  <Trash2 className="h-4 w-4" />
-                </button>
+                {/* Hide/Unhide button */}
+                {section.enabled ? (
+                  <button
+                    onClick={() => hideSection(id)}
+                    className="p-1.5 rounded text-ink-faint hover:text-amber-500 hover:bg-amber-50 transition-all"
+                    aria-label="Hide section"
+                    title="Hide from page"
+                  >
+                    <EyeOff className="h-4 w-4" />
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => unhideSection(id)}
+                    className="p-1.5 rounded text-green-500 hover:text-green-600 hover:bg-green-50 transition-all"
+                    aria-label="Unhide section"
+                    title="Show on page"
+                  >
+                    <Eye className="h-4 w-4" />
+                  </button>
+                )}
+
+                {/* Delete button — not available for hero and contact */}
+                {section.sectionType !== "hero" && section.sectionType !== "contact" && (
+                  <button
+                    onClick={() => {
+                      const label = SECTION_LABELS[section.sectionType] || section.sectionType;
+                      setDeleteConfirm({ id, label });
+                    }}
+                    className="p-1.5 rounded text-red-400 hover:text-red-600 hover:bg-red-50 transition-all"
+                    aria-label="Delete section"
+                    title="Permanently delete"
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </button>
+                )}
 
                 <button
                   onClick={() =>
@@ -447,6 +528,31 @@ export function PageBuilder({ tenant, onSave }: PageBuilderProps) {
           Each section type can only be added once, except Text Block which can be added multiple times.
         </p>
       </div>
+
+      <Modal
+        isOpen={deleteConfirm !== null}
+        onClose={() => setDeleteConfirm(null)}
+        title={`Delete "${deleteConfirm?.label || ""}" Section?`}
+        maxWidth="max-w-sm"
+      >
+        <p className="text-sm text-gray-600 mb-6">
+          All content in this section will be permanently removed. This action cannot be undone.
+        </p>
+        <div className="flex gap-3 justify-end">
+          <button
+            onClick={() => setDeleteConfirm(null)}
+            className="px-4 py-2 text-sm font-medium text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition-all"
+          >
+            Cancel
+          </button>
+          <button
+            onClick={executeDelete}
+            className="px-4 py-2 text-sm font-medium text-white bg-red-500 rounded-lg hover:bg-red-600 transition-all"
+          >
+            Delete
+          </button>
+        </div>
+      </Modal>
     </div>
   );
 }

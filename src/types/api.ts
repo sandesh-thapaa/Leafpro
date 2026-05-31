@@ -76,5 +76,10 @@ export interface ProfileUpdateData {
     googleMapsEmbedUrl: string;
     facebookProfileUrl: string;
     instagramHandle: string;
+    tiktokUrl: string;
+    linkedInUrl: string;
+    youtubeUrl: string;
+    twitterHandle: string;
+    telegramHandle: string;
   }>;
 }

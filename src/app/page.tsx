@@ -8,6 +8,7 @@ import {
   Minus,
 } from "lucide-react";
 import { APP_NAME, LEAFFPRO_WHATSAPP } from "@/lib/constants";
+import { CustomerShowcase } from "@/components/public/CustomerShowcase";
 
 const WHATSAPP_NUMBER =
   process.env.NEXT_PUBLIC_LEAFPRO_WHATSAPP || LEAFFPRO_WHATSAPP;
@@ -519,6 +520,8 @@ export default function LandingPage() {
             </div>
           </div>
         </section>
+
+        <CustomerShowcase />
 
         {/* ───── CTA ───── */}
         <section className="py-24 md:py-32 px-6 lg:px-8 bg-brand-dark">
