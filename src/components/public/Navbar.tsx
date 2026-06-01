@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
-import { MessageCircle, ArrowRight, Menu, X } from "lucide-react";
+import { useState, useEffect } from "react";
+import { MessageCircle, ArrowRight } from "lucide-react";
 import type { PageSectionConfig, SectionType } from "@/types/tenant";
 
 const SECTION_LABELS: Partial<Record<SectionType, string>> = {
@@ -31,7 +31,6 @@ export function Navbar({
   sections,
 }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
@@ -39,29 +38,16 @@ export function Navbar({
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useEffect(() => {
-    if (!menuOpen) return;
-    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setMenuOpen(false); };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [menuOpen]);
-
-  useEffect(() => {
-    document.body.style.overflow = menuOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
-  }, [menuOpen]);
-
   const navLinks = sections.filter(
     (s) => s.enabled && s.sectionType !== "hero" && SECTION_LABELS[s.sectionType as SectionType]
   );
 
-  const scrollTo = useCallback((id: string) => {
+  const scrollTo = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
       el.scrollIntoView({ behavior: "smooth", block: "start" });
     }
-    setMenuOpen(false);
-  }, []);
+  };
 
   return (
     <header
@@ -105,16 +91,6 @@ export function Navbar({
             </div>
           )}
 
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className={`md:hidden p-2 rounded-xl transition-all duration-200 ${
-              scrolled ? "text-gray-700 hover:bg-gray-100" : "text-white/80 hover:bg-white/10"
-            }`}
-            aria-label={menuOpen ? "Close menu" : "Open menu"}
-          >
-            {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </button>
-
           <div className="flex-1 flex justify-end">
             <a
               href={ctaLink}
@@ -129,32 +105,7 @@ export function Navbar({
             </a>
           </div>
         </div>
-
-        {menuOpen && navLinks.length > 0 && (
-          <div className="md:hidden border-t border-gray-100/20 pb-4 pt-2 mt-1">
-            {navLinks.map((s) => (
-              <button
-                key={s.sectionType}
-                onClick={() => scrollTo(s.sectionType)}
-                className={`block w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
-                  scrolled
-                    ? "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
-                    : "text-white/80 hover:text-white hover:bg-white/10"
-                }`}
-              >
-                {SECTION_LABELS[s.sectionType as SectionType]}
-              </button>
-            ))}
-          </div>
-        )}
       </nav>
-
-      {menuOpen && (
-        <div
-          className="fixed inset-0 z-40 md:hidden"
-          onClick={() => setMenuOpen(false)}
-        />
-      )}
     </header>
   );
 }
