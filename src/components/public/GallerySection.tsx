@@ -77,7 +77,7 @@ export function GallerySection({
               data-reveal
             >
               <img
-                src={asset.thumbnailUrl || asset.assetUrl}
+                src={asset.assetUrl}
                 alt={asset.assetCaption || ""}
                 className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
                 loading="lazy"
