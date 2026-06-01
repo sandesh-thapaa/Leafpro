@@ -45,11 +45,11 @@ export function PaymentsSection({ payments, accentColor }: PaymentsSectionProps)
                 className="group bg-white rounded-2xl border border-gray-100 shadow-lg shadow-gray-200/30 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 p-4 flex flex-col items-center gap-2"
                 data-reveal
               >
-                <div className="w-full aspect-square">
+                <div className="w-full aspect-square max-w-[160px] mx-auto">
                   <img
                     src={qr.imageUrl}
                     alt={qr.label || "Payment QR"}
-                    className="w-full h-full object-cover rounded-lg"
+                    className="w-full h-full object-contain"
                     loading="lazy"
                   />
                 </div>
