@@ -207,22 +207,22 @@ export default function LandingPage() {
             : "bg-transparent"
         }`}
       >
-        <nav className="max-w-6xl mx-auto px-6 lg:px-8">
+         <nav className="max-w-6xl mx-auto px-4 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <a href="/" className="flex items-center gap-2">
               <img
                 src="/Logo.png"
                 alt={APP_NAME}
-                className="h-10 w-auto rounded-md"
+                className="h-9 md:h-10 w-auto rounded-md"
               />
-              <span className="text-lg font-bold tracking-tight text-ink">
+              <span className="hidden sm:inline text-lg font-bold tracking-tight text-ink">
                 {APP_NAME}
               </span>
             </a>
-            <div className="flex items-center gap-8">
+            <div className="flex items-center gap-3 md:gap-8">
               <a
                 href={authenticated ? "/dashboard" : "/dashboard/login"}
-                className="text-sm tracking-wider font-medium text-ink-faint hover:text-ink transition-colors"
+                className="text-xs md:text-sm tracking-wider font-medium text-ink-faint hover:text-ink transition-colors whitespace-nowrap"
               >
                 {authenticated ? "Dashboard" : "Sign In"}
               </a>
@@ -230,10 +230,10 @@ export default function LandingPage() {
                 href={WHATSAPP_LINK}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded text-sm font-semibold tracking-wider bg-brand-dark text-white hover:bg-brand-dark/90 transition-all duration-200 active:scale-[0.97]"
+                className="inline-flex items-center gap-1.5 md:gap-2 px-3 py-1.5 md:px-5 md:py-2.5 rounded text-xs md:text-sm font-semibold tracking-wider bg-brand-dark text-white hover:bg-brand-dark/90 transition-all duration-200 active:scale-[0.97] whitespace-nowrap"
               >
                 Create Page
-                <ArrowRight className="h-3.5 w-3.5" />
+                <ArrowRight className="h-3 md:h-3.5 w-3 md:w-3.5" />
               </a>
             </div>
           </div>
