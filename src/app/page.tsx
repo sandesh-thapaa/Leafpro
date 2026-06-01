@@ -7,7 +7,7 @@ import {
   Plus,
   Minus,
 } from "lucide-react";
-import { APP_NAME, LEAFFPRO_WHATSAPP } from "@/lib/constants";
+import { APP_NAME, LEAFFPRO_WHATSAPP, AUTH } from "@/lib/constants";
 import { CustomerShowcase } from "@/components/public/CustomerShowcase";
 
 const WHATSAPP_NUMBER =
@@ -159,8 +159,14 @@ function GradientMesh() {
 export default function LandingPage() {
   const [scrolled, setScrolled] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [authenticated, setAuthenticated] = useState(false);
 
   useEffect(() => {
+    const hasToken = document.cookie
+      .split("; ")
+      .find(row => row.startsWith(`${AUTH.COOKIE_NAME}=`));
+    setAuthenticated(!!hasToken);
+
     const handleScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", handleScroll, { passive: true });
 
@@ -215,10 +221,10 @@ export default function LandingPage() {
             </a>
             <div className="flex items-center gap-8">
               <a
-                href="/dashboard/login"
+                href={authenticated ? "/dashboard" : "/dashboard/login"}
                 className="text-sm tracking-wider font-medium text-ink-faint hover:text-ink transition-colors"
               >
-                Sign In
+                {authenticated ? "Dashboard" : "Sign In"}
               </a>
               <a
                 href={WHATSAPP_LINK}
