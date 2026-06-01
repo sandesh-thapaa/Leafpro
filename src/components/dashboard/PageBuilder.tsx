@@ -113,6 +113,7 @@ export function PageBuilder({ tenant, onSave }: PageBuilderProps) {
   const [data, setData] = useState<TenantData>(() => ({
     ...tenant,
     aboutImageUrl: (tenant as any).aboutImageUrl ?? "",
+    payments: (tenant as any).payments ?? [],
   }));
   const [sections, setSections] = useState<PageSectionConfig[]>(() => {
     if (tenant.sections && tenant.sections.length > 0) {
@@ -134,7 +135,7 @@ export function PageBuilder({ tenant, onSave }: PageBuilderProps) {
       aboutImageUrl: tenant.aboutImageUrl ?? "",
       services: tenant.services,
       products: tenant.products,
-      payments: tenant.payments,
+      payments: tenant.payments ?? [],
       galleryAssets: tenant.galleryAssets,
       customTexts: tenant.customTexts,
       heroBlock: tenant.heroBlock,
