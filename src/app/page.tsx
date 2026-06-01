@@ -566,7 +566,7 @@ export default function LandingPage() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
             <div>
               <div className="flex items-center gap-3 mb-4">
-                <img src="/Logo.png" alt={APP_NAME} className="h-10 w-auto rounded" style={{ filter: "brightness(0) invert(1)" }} />
+                <img src="/Logo.png" alt={APP_NAME} className="h-10 w-auto rounded" />
                 <span className="text-lg font-semibold tracking-tight text-white">{APP_NAME}</span>
               </div>
               <p className="text-base text-white/50 leading-relaxed max-w-xs">
