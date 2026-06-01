@@ -59,6 +59,14 @@ export interface ProfileUpdateData {
     isPopular: boolean;
     order: number;
   }>;
+  galleryAssets?: Array<{
+    _id?: string;
+    assetUrl: string;
+    thumbnailUrl: string;
+    assetCaption: string;
+    assetOrder: number;
+    uploadedAt: string;
+  }>;
   customTexts?: Array<{
     title: string;
     content: string;

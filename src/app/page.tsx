@@ -376,6 +376,8 @@ export default function LandingPage() {
           </div>
         </section>
 
+        <CustomerShowcase />
+
         {/* ───── FEATURES ───── */}
         <section className="py-24 md:py-32 px-6 lg:px-8 border-b border-paper-dark">
           <div className="max-w-6xl mx-auto">
@@ -520,8 +522,6 @@ export default function LandingPage() {
             </div>
           </div>
         </section>
-
-        <CustomerShowcase />
 
         {/* ───── CTA ───── */}
         <section className="py-24 md:py-32 px-6 lg:px-8 bg-brand-dark">

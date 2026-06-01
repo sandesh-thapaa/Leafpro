@@ -274,6 +274,7 @@ export function PageBuilder({ tenant, onSave }: PageBuilderProps) {
         aboutImageUrl: data.aboutImageUrl,
         services: data.services,
         products: data.products,
+        galleryAssets: data.galleryAssets,
         customTexts: data.customTexts,
         routingEndpoints: data.routingEndpoints,
         sections: sections.map((s) => ({
@@ -347,7 +348,7 @@ export function PageBuilder({ tenant, onSave }: PageBuilderProps) {
               key={id}
               className="bg-bone/80 border border-paper-dark rounded overflow-hidden transition-all"
             >
-              <div className="flex items-center gap-3 px-4 py-3">
+              <div className="flex flex-wrap items-center gap-2 px-4 py-3">
                 <div className="text-ink-faint cursor-grab">
                   <GripVertical className="h-4 w-4" />
                 </div>
@@ -359,22 +360,6 @@ export function PageBuilder({ tenant, onSave }: PageBuilderProps) {
                     <span className="text-xs text-amber-500 font-medium shrink-0">Hidden</span>
                   )}
                 </div>
-
-                {layouts.length > 0 && (
-                  <select
-                    value={section.layout}
-                    onChange={(e) =>
-                      updateSection(id, { layout: e.target.value })
-                    }
-                    className="text-xs bg-paper border border-paper-dark rounded px-2 py-1 text-ink-mute focus:outline-none focus:border-coral"
-                  >
-                    {layouts.map((l) => (
-                      <option key={l.value} value={l.value}>
-                        {l.label}
-                      </option>
-                    ))}
-                  </select>
-                )}
 
                 <div className="flex items-center gap-1">
                   <button
@@ -393,50 +378,68 @@ export function PageBuilder({ tenant, onSave }: PageBuilderProps) {
                   </button>
                 </div>
 
-                {/* Hide/Unhide button */}
-                {section.enabled ? (
-                  <button
-                    onClick={() => hideSection(id)}
-                    className="p-1.5 rounded text-ink-faint hover:text-amber-500 hover:bg-amber-50 transition-all"
-                    aria-label="Hide section"
-                    title="Hide from page"
+                {layouts.length > 0 && (
+                  <select
+                    value={section.layout}
+                    onChange={(e) =>
+                      updateSection(id, { layout: e.target.value })
+                    }
+                    className="text-xs bg-paper border border-paper-dark rounded px-2 py-1 text-ink-mute focus:outline-none focus:border-coral w-full sm:w-auto"
                   >
-                    <EyeOff className="h-4 w-4" />
-                  </button>
-                ) : (
-                  <button
-                    onClick={() => unhideSection(id)}
-                    className="p-1.5 rounded text-green-500 hover:text-green-600 hover:bg-green-50 transition-all"
-                    aria-label="Unhide section"
-                    title="Show on page"
-                  >
-                    <Eye className="h-4 w-4" />
-                  </button>
+                    {layouts.map((l) => (
+                      <option key={l.value} value={l.value}>
+                        {l.label}
+                      </option>
+                    ))}
+                  </select>
                 )}
 
-                {/* Delete button — not available for hero and contact */}
-                {section.sectionType !== "hero" && section.sectionType !== "contact" && (
-                  <button
-                    onClick={() => {
-                      const label = SECTION_LABELS[section.sectionType] || section.sectionType;
-                      setDeleteConfirm({ id, label });
-                    }}
-                    className="p-1.5 rounded text-red-400 hover:text-red-600 hover:bg-red-50 transition-all"
-                    aria-label="Delete section"
-                    title="Permanently delete"
-                  >
-                    <Trash2 className="h-4 w-4" />
-                  </button>
-                )}
+                <div className="flex items-center gap-1">
+                  {/* Hide/Unhide button */}
+                  {section.enabled ? (
+                    <button
+                      onClick={() => hideSection(id)}
+                      className="p-1.5 rounded text-ink-faint hover:text-amber-500 hover:bg-amber-50 transition-all"
+                      aria-label="Hide section"
+                      title="Hide from page"
+                    >
+                      <EyeOff className="h-4 w-4" />
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => unhideSection(id)}
+                      className="p-1.5 rounded text-green-500 hover:text-green-600 hover:bg-green-50 transition-all"
+                      aria-label="Unhide section"
+                      title="Show on page"
+                    >
+                      <Eye className="h-4 w-4" />
+                    </button>
+                  )}
 
-                <button
-                  onClick={() =>
-                    setExpandedId(isExpanded ? null : id)
-                  }
-                  className="text-xs font-medium text-coral hover:text-coral/80 shrink-0"
-                >
-                  {isExpanded ? "Close" : "Edit"}
-                </button>
+                  {/* Delete button — not available for hero and contact */}
+                  {section.sectionType !== "hero" && section.sectionType !== "contact" && (
+                    <button
+                      onClick={() => {
+                        const label = SECTION_LABELS[section.sectionType] || section.sectionType;
+                        setDeleteConfirm({ id, label });
+                      }}
+                      className="p-1.5 rounded text-red-400 hover:text-red-600 hover:bg-red-50 transition-all"
+                      aria-label="Delete section"
+                      title="Permanently delete"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </button>
+                  )}
+
+                  <button
+                    onClick={() =>
+                      setExpandedId(isExpanded ? null : id)
+                    }
+                    className="text-xs font-medium text-coral hover:text-coral/80 shrink-0 ml-1"
+                  >
+                    {isExpanded ? "Close" : "Edit"}
+                  </button>
+                </div>
               </div>
 
               {isExpanded && (

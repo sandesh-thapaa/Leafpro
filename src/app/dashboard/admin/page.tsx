@@ -15,8 +15,6 @@ import {
   ShieldAlert,
   PauseCircle,
   PlayCircle,
-  EyeOff,
-  Eye,
   Search,
   RotateCcw,
   Trash2,
@@ -70,21 +68,6 @@ export default function AdminPage() {
       if (!data.success) { showToast(data.error || "Failed", "error"); return; }
       showToast(`Tenant ${status === "active" ? "activated" : "suspended"}`, "success");
       fetchTenants();
-    } catch { showToast("Failed", "error"); }
-    finally { setActionLoading(null); }
-  };
-
-  const toggleVisibility = async (id: string, hidden: boolean) => {
-    setActionLoading(id);
-    try {
-      const res = await fetch(`/api/v1/dashboard/admin/tenants/${id}/visibility`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ hidden }),
-      });
-      const data = await res.json();
-      if (!data.success) { showToast(data.error || "Failed", "error"); return; }
-      showToast(hidden ? "Content hidden" : "Content visible", "success");
     } catch { showToast("Failed", "error"); }
     finally { setActionLoading(null); }
   };
@@ -368,18 +351,6 @@ export default function AdminPage() {
                           <PlayCircle className="h-4 w-4" />
                         </button>
                       )}
-
-                      <button onClick={() => toggleVisibility(tenant._id, true)}
-                        disabled={actionLoading === tenant._id}
-                        className="p-2 rounded-lg text-amber-400 hover:text-amber-600 hover:bg-amber-50 transition-all disabled:opacity-50" title="Hide content">
-                        <EyeOff className="h-4 w-4" />
-                      </button>
-
-                      <button onClick={() => toggleVisibility(tenant._id, false)}
-                        disabled={actionLoading === tenant._id}
-                        className="p-2 rounded-lg text-green-400 hover:text-green-600 hover:bg-green-50 transition-all disabled:opacity-50" title="Unhide content">
-                        <Eye className="h-4 w-4" />
-                      </button>
 
                       <button onClick={() => {
                         setSelectedRequest({ _id: tenant._id, businessName: tenant.name, phone: tenant.phone });

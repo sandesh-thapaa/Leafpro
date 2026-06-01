@@ -110,7 +110,7 @@ export function ImageUpload({ value, onChange, label }: ImageUploadProps) {
       {value && !previewUrl ? (
         <div className="relative rounded border border-paper-dark overflow-hidden bg-bone group">
           <img src={value} alt="Upload preview" className="w-full aspect-video object-cover" />
-          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-200 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100">
+          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-200 flex items-center justify-center gap-2 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 max-lg:bg-black/20">
             <button type="button" onClick={() => fileInputRef.current?.click()} className="p-2 rounded bg-white/90 hover:bg-white text-ink transition-all" title="Replace image"><Upload className="h-4 w-4" /></button>
             <button type="button" onClick={handleRemove} className="p-2 rounded bg-white/90 hover:bg-red-500 hover:text-white text-red-500 transition-all" title="Remove image"><X className="h-4 w-4" /></button>
           </div>

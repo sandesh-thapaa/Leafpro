@@ -5,6 +5,10 @@ import { getAuthenticatedUser } from "@/lib/auth";
 import { successResponse, errorResponse } from "@/lib/api-response";
 import type { ProfileUpdateData } from "@/types/api";
 
+function stripUrlPrefix(val: string): string {
+  return val.replace(/^(https?:\/\/)?(www\.)?(instagram\.com|facebook\.com|tiktok\.com|linkedin\.com|youtube\.com|twitter\.com|x\.com|t\.me\/)\/?/i, "");
+}
+
 export async function GET() {
   try {
     const user = await getAuthenticatedUser();
@@ -70,6 +74,10 @@ export async function PATCH(request: NextRequest) {
       updateData.products = body.products;
     }
 
+    if (body.galleryAssets !== undefined) {
+      updateData.galleryAssets = body.galleryAssets;
+    }
+
     if (body.customTexts !== undefined) {
       updateData.customTexts = body.customTexts;
     }
@@ -91,7 +99,7 @@ export async function PATCH(request: NextRequest) {
           endpoints.facebookProfileUrl;
       if (endpoints.instagramHandle !== undefined)
         updateData["routingEndpoints.instagramHandle"] =
-          endpoints.instagramHandle;
+          stripUrlPrefix(endpoints.instagramHandle);
       if (endpoints.tiktokUrl !== undefined)
         updateData["routingEndpoints.tiktokUrl"] = endpoints.tiktokUrl;
       if (endpoints.linkedInUrl !== undefined)
@@ -99,7 +107,7 @@ export async function PATCH(request: NextRequest) {
       if (endpoints.youtubeUrl !== undefined)
         updateData["routingEndpoints.youtubeUrl"] = endpoints.youtubeUrl;
       if (endpoints.twitterHandle !== undefined)
-        updateData["routingEndpoints.twitterHandle"] = endpoints.twitterHandle;
+        updateData["routingEndpoints.twitterHandle"] = stripUrlPrefix(endpoints.twitterHandle);
       if (endpoints.telegramHandle !== undefined)
         updateData["routingEndpoints.telegramHandle"] = endpoints.telegramHandle;
     }
