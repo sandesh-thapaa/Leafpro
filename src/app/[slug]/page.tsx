@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { connectDB } from "@/lib/db";
-import { TenantBusiness, type IServiceOffering, type IGalleryAsset, type IProductItem, type ICustomTextSection, type IPageSectionConfig } from "@/lib/models/TenantBusiness";
+import { TenantBusiness, type IServiceOffering, type IGalleryAsset, type IProductItem, type ICustomTextSection, type IPageSectionConfig, type IPaymentQr } from "@/lib/models/TenantBusiness";
 import { TenantPageClient } from "./TenantPageClient";
 
 interface PageProps {
@@ -66,6 +66,12 @@ async function getTenant(slug: string) {
       isPopular: p.isPopular ?? false,
       order: p.order ?? 0,
     })),
+    payments: ((tenant as any).payments ?? []).map((p: any) => ({
+      _id: (p._id as any)?.toString() ?? "",
+      imageUrl: p.imageUrl ?? "",
+      label: p.label ?? "",
+      order: p.order ?? 0,
+    })),
     customTexts: ((tenant as any).customTexts ?? [] as ICustomTextSection[]).map((c: ICustomTextSection) => ({
       _id: (c._id as any)?.toString() ?? "",
       title: c.title ?? "",
@@ -88,6 +94,7 @@ async function getTenant(slug: string) {
       linkedInUrl: (tenant.routingEndpoints as any)?.linkedInUrl ?? "",
       youtubeUrl: (tenant.routingEndpoints as any)?.youtubeUrl ?? "",
       youtubeEmbedUrl: (tenant.routingEndpoints as any)?.youtubeEmbedUrl ?? "",
+      googleReviewUrl: (tenant.routingEndpoints as any)?.googleReviewUrl ?? "",
       twitterHandle: (tenant.routingEndpoints as any)?.twitterHandle ?? "",
       telegramHandle: (tenant.routingEndpoints as any)?.telegramHandle ?? "",
     },

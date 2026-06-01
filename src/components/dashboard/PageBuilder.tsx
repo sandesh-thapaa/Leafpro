@@ -8,6 +8,7 @@ import { AboutEditor } from "./sections/AboutEditor";
 import { ServicesEditor } from "./sections/ServicesEditor";
 import { GalleryEditor } from "./sections/GalleryEditor";
 import { ProductsEditor } from "./sections/ProductsEditor";
+import { PaymentsEditor } from "./sections/PaymentsEditor";
 import { ContactEditor } from "./sections/ContactEditor";
 import { TextEditor } from "./sections/TextEditor";
 import {
@@ -58,6 +59,15 @@ function getDefaultSections(data: TenantData): PageSectionConfig[] {
   if (data.products && data.products.length > 0) {
     sections.push({
       sectionType: "products",
+      enabled: true,
+      order: order++,
+      layout: "grid",
+    });
+  }
+
+  if (data.payments && data.payments.length > 0) {
+    sections.push({
+      sectionType: "payments",
       enabled: true,
       order: order++,
       layout: "grid",
@@ -124,6 +134,7 @@ export function PageBuilder({ tenant, onSave }: PageBuilderProps) {
       aboutImageUrl: tenant.aboutImageUrl ?? "",
       services: tenant.services,
       products: tenant.products,
+      payments: tenant.payments,
       galleryAssets: tenant.galleryAssets,
       customTexts: tenant.customTexts,
       heroBlock: tenant.heroBlock,
@@ -215,6 +226,8 @@ export function PageBuilder({ tenant, onSave }: PageBuilderProps) {
         setData((prev) => ({ ...prev, services: [] }));
       } else if (type === "products") {
         setData((prev) => ({ ...prev, products: [] }));
+      } else if (type === "payments") {
+        setData((prev) => ({ ...prev, payments: [] }));
       } else if (type === "gallery") {
         setData((prev) => ({ ...prev, galleryAssets: [] }));
       } else if (type === "text") {
@@ -296,6 +309,7 @@ export function PageBuilder({ tenant, onSave }: PageBuilderProps) {
         aboutImageUrl: data.aboutImageUrl,
         services: data.services,
         products: data.products,
+        payments: data.payments,
         galleryAssets: data.galleryAssets,
         customTexts: data.customTexts,
         routingEndpoints: data.routingEndpoints,
@@ -497,6 +511,14 @@ export function PageBuilder({ tenant, onSave }: PageBuilderProps) {
                       }
                     />
                   )}
+                  {section.sectionType === "payments" && (
+                    <PaymentsEditor
+                      payments={data.payments}
+                      onChange={(p) =>
+                        setData((prev) => ({ ...prev, payments: p }))
+                      }
+                    />
+                  )}
                   {section.sectionType === "contact" && (
                     <ContactEditor data={data} onChange={fieldChange} />
                   )}
@@ -526,6 +548,7 @@ export function PageBuilder({ tenant, onSave }: PageBuilderProps) {
               "about",
               "services",
               "products",
+              "payments",
               "gallery",
               "text",
               "contact",

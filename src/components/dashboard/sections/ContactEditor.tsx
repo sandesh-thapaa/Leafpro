@@ -68,6 +68,13 @@ export function ContactEditor({ data, onChange }: ContactEditorProps) {
         hint="Paste the embed URL from YouTube (share → embed)"
       />
       <Input
+        label="Google Review Link"
+        value={data.routingEndpoints.googleReviewUrl}
+        onChange={(e) => onChange("routingEndpoints.googleReviewUrl", e.target.value)}
+        placeholder="https://search.google.com/local/writereview?placeid=..."
+        hint="Paste your Google Review link to show a 'Give a Review' button"
+      />
+      <Input
         label="Twitter / X Handle"
         value={data.routingEndpoints.twitterHandle}
         onChange={(e) => onChange("routingEndpoints.twitterHandle", e.target.value)}

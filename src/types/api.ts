@@ -59,6 +59,11 @@ export interface ProfileUpdateData {
     isPopular: boolean;
     order: number;
   }>;
+  payments?: Array<{
+    imageUrl: string;
+    label: string;
+    order: number;
+  }>;
   galleryAssets?: Array<{
     _id?: string;
     assetUrl: string;
@@ -88,6 +93,7 @@ export interface ProfileUpdateData {
     linkedInUrl: string;
     youtubeUrl: string;
     youtubeEmbedUrl: string;
+    googleReviewUrl: string;
     twitterHandle: string;
     telegramHandle: string;
   }>;

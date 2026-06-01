@@ -1,6 +1,6 @@
 "use client";
 
-import { MessageCircle, Phone, MapPin } from "lucide-react";
+import { MessageCircle, Phone, MapPin, Star } from "lucide-react";
 
 interface SocialLink {
   key: string;
@@ -19,6 +19,7 @@ interface ContactSectionProps {
   linkedInUrl: string;
   youtubeUrl: string;
   youtubeEmbedUrl: string;
+  googleReviewUrl: string;
   twitterHandle: string;
   telegramHandle: string;
   accentColor: string;
@@ -36,6 +37,7 @@ export function ContactSection({
   linkedInUrl,
   youtubeUrl,
   youtubeEmbedUrl,
+  googleReviewUrl,
   twitterHandle,
   telegramHandle,
   accentColor,
@@ -223,6 +225,21 @@ export function ContactSection({
             </div>
           )}
 
+          {googleReviewUrl && (
+            <div className="mt-4 flex justify-center">
+              <a
+                href={googleReviewUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5"
+                style={{ backgroundColor: `${accentColor}12`, color: accentColor }}
+              >
+                <Star className="h-4 w-4" />
+                Give a Review
+              </a>
+            </div>
+          )}
+
           {hasVideo && (
             <div className="mt-12 rounded-2xl overflow-hidden border border-gray-200 shadow-xl aspect-video">
               <iframe
@@ -330,6 +347,21 @@ export function ContactSection({
               >
                 <MapPin className="h-4 w-4" style={{ color: accentColor }} />
                 View on Google Maps
+              </a>
+            </div>
+          )}
+
+          {googleReviewUrl && (
+            <div className="mt-6 text-center">
+              <a
+                href={googleReviewUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5"
+                style={{ backgroundColor: `${accentColor}12`, color: accentColor }}
+              >
+                <Star className="h-4 w-4" />
+                Give a Review
               </a>
             </div>
           )}
@@ -454,6 +486,21 @@ export function ContactSection({
               title="Business Location"
             />
           </div>
+
+          {googleReviewUrl && (
+            <div className="mt-6 text-center">
+              <a
+                href={googleReviewUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5"
+                style={{ backgroundColor: `${accentColor}12`, color: accentColor }}
+              >
+                <Star className="h-4 w-4" />
+                Give a Review
+              </a>
+            </div>
+          )}
         </div>
 
         {hasVideo && (

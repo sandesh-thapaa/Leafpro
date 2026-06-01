@@ -33,7 +33,14 @@ export interface CustomTextSection {
   order: number;
 }
 
-export type SectionType = "hero" | "about" | "services" | "gallery" | "products" | "contact" | "text";
+export interface PaymentQr {
+  _id?: string;
+  imageUrl: string;
+  label: string;
+  order: number;
+}
+
+export type SectionType = "hero" | "about" | "services" | "gallery" | "products" | "contact" | "text" | "payments";
 
 export interface PageSectionConfig {
   _id?: string;
@@ -59,6 +66,7 @@ export interface RoutingEndpoints {
   linkedInUrl: string;
   youtubeUrl: string;
   youtubeEmbedUrl: string;
+  googleReviewUrl: string;
   twitterHandle: string;
   telegramHandle: string;
 }
@@ -75,6 +83,7 @@ export interface TenantData {
   aboutImageUrl: string;
   services: ServiceOffering[];
   products: ProductItem[];
+  payments: PaymentQr[];
   customTexts: CustomTextSection[];
   galleryAssets: GalleryAsset[];
   routingEndpoints: RoutingEndpoints;
@@ -92,6 +101,7 @@ export const SECTION_LABELS: Record<SectionType, string> = {
   services: "Services",
   gallery: "Gallery",
   products: "Products",
+  payments: "Payments",
   contact: "Contact",
   text: "Text Block",
 };
@@ -125,5 +135,8 @@ export const SECTION_LAYOUTS: Record<SectionType, { value: string; label: string
   ],
   text: [
     { value: "default", label: "Default" },
+  ],
+  payments: [
+    { value: "grid", label: "Grid" },
   ],
 };

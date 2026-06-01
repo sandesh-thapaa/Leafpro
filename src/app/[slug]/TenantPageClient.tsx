@@ -7,6 +7,7 @@ import { AboutSection } from "@/components/public/AboutSection";
 import { ServicesSection } from "@/components/public/ServicesSection";
 import { GallerySection } from "@/components/public/GallerySection";
 import { ProductsSection } from "@/components/public/ProductsSection";
+import { PaymentsSection } from "@/components/public/PaymentsSection";
 import { ContactSection } from "@/components/public/ContactSection";
 import { TextSection } from "@/components/public/TextSection";
 import { Footer } from "@/components/public/Footer";
@@ -56,6 +57,11 @@ export function TenantPageClient({ tenant }: TenantPageClientProps) {
         sectionType: "products", enabled: true, order: order++, layout: "grid",
       });
     }
+    if (tenant.payments && tenant.payments.length > 0) {
+      defaults.push({
+        sectionType: "payments", enabled: true, order: order++, layout: "grid",
+      });
+    }
     if (tenant.galleryAssets && tenant.galleryAssets.length > 0) {
       defaults.push({
         sectionType: "gallery", enabled: true, order: order++, layout: "grid-3",
@@ -72,7 +78,7 @@ export function TenantPageClient({ tenant }: TenantPageClientProps) {
     return defaults;
   }, [tenant.sections, tenant.aboutDescription, tenant.aboutImageUrl,
       tenant.heroBlock.bannerImageUrl, tenant.services, tenant.products,
-      tenant.galleryAssets, tenant.customTexts]);
+      tenant.payments, tenant.galleryAssets, tenant.customTexts]);
 
   useEffect(() => {
     const reduceMotion = window.matchMedia(
@@ -160,6 +166,15 @@ export function TenantPageClient({ tenant }: TenantPageClientProps) {
             />
           </section>
         );
+      case "payments":
+        return (
+          <section key="payments" id="payments">
+            <PaymentsSection
+              payments={tenant.payments}
+              accentColor={accentColor}
+            />
+          </section>
+        );
       case "contact":
         return (
           <section key="contact" id="contact">
@@ -173,6 +188,7 @@ export function TenantPageClient({ tenant }: TenantPageClientProps) {
               linkedInUrl={tenant.routingEndpoints.linkedInUrl}
               youtubeUrl={tenant.routingEndpoints.youtubeUrl}
               youtubeEmbedUrl={tenant.routingEndpoints.youtubeEmbedUrl}
+              googleReviewUrl={tenant.routingEndpoints.googleReviewUrl}
               twitterHandle={tenant.routingEndpoints.twitterHandle}
               telegramHandle={tenant.routingEndpoints.telegramHandle}
               accentColor={accentColor}

@@ -1,6 +1,6 @@
 import mongoose, { Schema, Document, Model } from "mongoose";
 
-export type SectionType = "hero" | "about" | "services" | "gallery" | "products" | "contact" | "text";
+export type SectionType = "hero" | "about" | "services" | "gallery" | "products" | "contact" | "text" | "payments";
 
 export interface IPageSectionConfig {
   _id?: string;
@@ -38,6 +38,13 @@ export interface IProductItem {
   order: number;
 }
 
+export interface IPaymentQr {
+  _id?: string;
+  imageUrl: string;
+  label: string;
+  order: number;
+}
+
 export interface ICustomTextSection {
   _id?: string;
   title: string;
@@ -61,6 +68,7 @@ export interface IRoutingEndpoints {
   linkedInUrl: string;
   youtubeUrl: string;
   youtubeEmbedUrl: string;
+  googleReviewUrl: string;
   twitterHandle: string;
   telegramHandle: string;
 }
@@ -76,6 +84,7 @@ export interface ITenantBusiness extends Document {
   aboutImageUrl: string;
   services: IServiceOffering[];
   products: IProductItem[];
+  payments: IPaymentQr[];
   customTexts: ICustomTextSection[];
   galleryAssets: IGalleryAsset[];
   routingEndpoints: IRoutingEndpoints;
@@ -115,6 +124,12 @@ const ProductItemSchema = new Schema<IProductItem>({
   order: { type: Number, default: 0 },
 });
 
+const PaymentQrSchema = new Schema<IPaymentQr>({
+  imageUrl: { type: String, default: "" },
+  label: { type: String, default: "" },
+  order: { type: Number, default: 0 },
+});
+
 const CustomTextSectionSchema = new Schema<ICustomTextSection>({
   title: { type: String, default: "" },
   content: { type: String, default: "" },
@@ -125,7 +140,7 @@ const PageSectionConfigSchema = new Schema<IPageSectionConfig>(
   {
     sectionType: {
       type: String,
-      enum: ["hero", "about", "services", "gallery", "products", "contact", "text"],
+      enum: ["hero", "about", "services", "gallery", "products", "contact", "text", "payments"],
       required: true,
     },
     enabled: { type: Boolean, default: true },
@@ -145,6 +160,7 @@ const RoutingEndpointsSchema = new Schema<IRoutingEndpoints>(
     linkedInUrl: { type: String, default: "" },
     youtubeUrl: { type: String, default: "" },
     youtubeEmbedUrl: { type: String, default: "" },
+    googleReviewUrl: { type: String, default: "" },
     twitterHandle: { type: String, default: "" },
     telegramHandle: { type: String, default: "" },
   },
@@ -184,6 +200,7 @@ const TenantBusinessSchema = new Schema<ITenantBusiness>(
 
     services: { type: [ServiceOfferingSchema], default: [] },
     products: { type: [ProductItemSchema], default: [] },
+    payments: { type: [PaymentQrSchema], default: [] },
     customTexts: { type: [CustomTextSectionSchema], default: [] },
     galleryAssets: { type: [GalleryAssetSchema], default: [] },
     routingEndpoints: { type: RoutingEndpointsSchema, default: () => ({}) },

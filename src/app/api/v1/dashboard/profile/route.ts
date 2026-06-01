@@ -82,6 +82,10 @@ export async function PATCH(request: NextRequest) {
       updateData.customTexts = body.customTexts;
     }
 
+    if (body.payments !== undefined) {
+      updateData.payments = body.payments;
+    }
+
     if (body.sections !== undefined) {
       updateData.sections = body.sections;
     }
@@ -108,6 +112,8 @@ export async function PATCH(request: NextRequest) {
         updateData["routingEndpoints.youtubeUrl"] = endpoints.youtubeUrl;
       if (endpoints.youtubeEmbedUrl !== undefined)
         updateData["routingEndpoints.youtubeEmbedUrl"] = endpoints.youtubeEmbedUrl;
+      if (endpoints.googleReviewUrl !== undefined)
+        updateData["routingEndpoints.googleReviewUrl"] = endpoints.googleReviewUrl;
       if (endpoints.twitterHandle !== undefined)
         updateData["routingEndpoints.twitterHandle"] = stripUrlPrefix(endpoints.twitterHandle);
       if (endpoints.telegramHandle !== undefined)
