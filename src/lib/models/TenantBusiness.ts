@@ -60,6 +60,7 @@ export interface IRoutingEndpoints {
   tiktokUrl: string;
   linkedInUrl: string;
   youtubeUrl: string;
+  youtubeEmbedUrl: string;
   twitterHandle: string;
   telegramHandle: string;
 }
@@ -143,6 +144,7 @@ const RoutingEndpointsSchema = new Schema<IRoutingEndpoints>(
     tiktokUrl: { type: String, default: "" },
     linkedInUrl: { type: String, default: "" },
     youtubeUrl: { type: String, default: "" },
+    youtubeEmbedUrl: { type: String, default: "" },
     twitterHandle: { type: String, default: "" },
     telegramHandle: { type: String, default: "" },
   },

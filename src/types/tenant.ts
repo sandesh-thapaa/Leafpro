@@ -58,6 +58,7 @@ export interface RoutingEndpoints {
   tiktokUrl: string;
   linkedInUrl: string;
   youtubeUrl: string;
+  youtubeEmbedUrl: string;
   twitterHandle: string;
   telegramHandle: string;
 }

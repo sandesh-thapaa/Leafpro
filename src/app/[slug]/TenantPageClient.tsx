@@ -172,6 +172,7 @@ export function TenantPageClient({ tenant }: TenantPageClientProps) {
               tiktokUrl={tenant.routingEndpoints.tiktokUrl}
               linkedInUrl={tenant.routingEndpoints.linkedInUrl}
               youtubeUrl={tenant.routingEndpoints.youtubeUrl}
+              youtubeEmbedUrl={tenant.routingEndpoints.youtubeEmbedUrl}
               twitterHandle={tenant.routingEndpoints.twitterHandle}
               telegramHandle={tenant.routingEndpoints.telegramHandle}
               accentColor={accentColor}

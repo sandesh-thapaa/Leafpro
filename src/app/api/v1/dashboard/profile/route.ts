@@ -106,6 +106,8 @@ export async function PATCH(request: NextRequest) {
         updateData["routingEndpoints.linkedInUrl"] = endpoints.linkedInUrl;
       if (endpoints.youtubeUrl !== undefined)
         updateData["routingEndpoints.youtubeUrl"] = endpoints.youtubeUrl;
+      if (endpoints.youtubeEmbedUrl !== undefined)
+        updateData["routingEndpoints.youtubeEmbedUrl"] = endpoints.youtubeEmbedUrl;
       if (endpoints.twitterHandle !== undefined)
         updateData["routingEndpoints.twitterHandle"] = stripUrlPrefix(endpoints.twitterHandle);
       if (endpoints.telegramHandle !== undefined)

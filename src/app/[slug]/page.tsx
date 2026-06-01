@@ -87,6 +87,7 @@ async function getTenant(slug: string) {
       tiktokUrl: (tenant.routingEndpoints as any)?.tiktokUrl ?? "",
       linkedInUrl: (tenant.routingEndpoints as any)?.linkedInUrl ?? "",
       youtubeUrl: (tenant.routingEndpoints as any)?.youtubeUrl ?? "",
+      youtubeEmbedUrl: (tenant.routingEndpoints as any)?.youtubeEmbedUrl ?? "",
       twitterHandle: (tenant.routingEndpoints as any)?.twitterHandle ?? "",
       telegramHandle: (tenant.routingEndpoints as any)?.telegramHandle ?? "",
     },

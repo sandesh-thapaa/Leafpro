@@ -18,6 +18,7 @@ interface ContactSectionProps {
   tiktokUrl: string;
   linkedInUrl: string;
   youtubeUrl: string;
+  youtubeEmbedUrl: string;
   twitterHandle: string;
   telegramHandle: string;
   accentColor: string;
@@ -34,6 +35,7 @@ export function ContactSection({
   tiktokUrl,
   linkedInUrl,
   youtubeUrl,
+  youtubeEmbedUrl,
   twitterHandle,
   telegramHandle,
   accentColor,
@@ -62,6 +64,7 @@ export function ContactSection({
   ].filter((item) => item.value);
 
   const hasMap = googleMapsUrl && googleMapsUrl.includes("embed");
+  const hasVideo = youtubeEmbedUrl && youtubeEmbedUrl.includes("embed");
 
   const socialLinks: SocialLink[] = [
     {
@@ -100,7 +103,7 @@ export function ContactSection({
       key: "youtube",
       url: youtubeUrl,
       label: "YouTube",
-      icon: <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0C.488 3.45.029 5.804 0 12c.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0C19.51 20.55 19.97 18.196 20 12c-.03-6.185-.484-8.549-4.385-8.816zM9 16V8l8 4-8 4z" />,
+      icon: <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />,
     },
     {
       key: "twitter",
@@ -219,6 +222,20 @@ export function ContactSection({
               />
             </div>
           )}
+
+          {hasVideo && (
+            <div className="mt-12 rounded-2xl overflow-hidden border border-gray-200 shadow-xl aspect-video">
+              <iframe
+                src={youtubeEmbedUrl}
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                title="YouTube Video"
+              />
+            </div>
+          )}
         </div>
       </section>
     );
@@ -314,6 +331,20 @@ export function ContactSection({
                 <MapPin className="h-4 w-4" style={{ color: accentColor }} />
                 View on Google Maps
               </a>
+            </div>
+          )}
+
+          {hasVideo && (
+            <div className="mt-12 max-w-3xl mx-auto rounded-2xl overflow-hidden border border-gray-200 shadow-xl aspect-video">
+              <iframe
+                src={youtubeEmbedUrl}
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                title="YouTube Video"
+              />
             </div>
           )}
         </div>
@@ -424,6 +455,20 @@ export function ContactSection({
             />
           </div>
         </div>
+
+        {hasVideo && (
+          <div className="mt-12 max-w-3xl mx-auto rounded-2xl overflow-hidden border border-gray-200 shadow-xl aspect-video">
+            <iframe
+              src={youtubeEmbedUrl}
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              title="YouTube Video"
+            />
+          </div>
+        )}
       </div>
     </section>
   );

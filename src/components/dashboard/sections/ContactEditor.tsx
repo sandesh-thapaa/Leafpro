@@ -61,6 +61,13 @@ export function ContactEditor({ data, onChange }: ContactEditorProps) {
         placeholder="https://youtube.com/@yourchannel"
       />
       <Input
+        label="YouTube Embed URL"
+        value={data.routingEndpoints.youtubeEmbedUrl}
+        onChange={(e) => onChange("routingEndpoints.youtubeEmbedUrl", e.target.value)}
+        placeholder="https://www.youtube.com/embed/VIDEO_ID"
+        hint="Paste the embed URL from YouTube (share → embed)"
+      />
+      <Input
         label="Twitter / X Handle"
         value={data.routingEndpoints.twitterHandle}
         onChange={(e) => onChange("routingEndpoints.twitterHandle", e.target.value)}

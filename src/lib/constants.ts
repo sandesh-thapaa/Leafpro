@@ -28,7 +28,7 @@ export const UPLOAD = {
   ],
   ALLOWED_EXTENSIONS: [".jpg", ".jpeg", ".png", ".webp", ".avif"],
   CLOUDINARY_FOLDER: "leafpro",
-  THUMBNAIL_WIDTH: 150,
+  THUMBNAIL_WIDTH: 600,
   PREVIEW_WIDTH: 640,
   FULL_WIDTH: 1920,
 };

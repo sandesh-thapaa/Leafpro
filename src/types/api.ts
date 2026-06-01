@@ -87,6 +87,7 @@ export interface ProfileUpdateData {
     tiktokUrl: string;
     linkedInUrl: string;
     youtubeUrl: string;
+    youtubeEmbedUrl: string;
     twitterHandle: string;
     telegramHandle: string;
   }>;
