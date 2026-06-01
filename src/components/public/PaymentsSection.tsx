@@ -42,14 +42,14 @@ export function PaymentsSection({ payments, accentColor }: PaymentsSectionProps)
               <button
                 key={qr._id || index}
                 onClick={() => setLightboxUrl(qr.imageUrl)}
-                className="group bg-white rounded-2xl border border-gray-100 shadow-lg shadow-gray-200/30 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 p-6 flex flex-col items-center gap-3"
+                className="group bg-white rounded-2xl border border-gray-100 shadow-lg shadow-gray-200/30 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 p-4 flex flex-col items-center gap-2"
                 data-reveal
               >
-                <div className="w-full aspect-square max-w-[200px]">
+                <div className="w-full aspect-square">
                   <img
                     src={qr.imageUrl}
                     alt={qr.label || "Payment QR"}
-                    className="w-full h-full object-contain"
+                    className="w-full h-full object-cover rounded-lg"
                     loading="lazy"
                   />
                 </div>
