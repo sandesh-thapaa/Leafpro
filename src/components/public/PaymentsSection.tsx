@@ -42,19 +42,26 @@ export function PaymentsSection({ payments, accentColor }: PaymentsSectionProps)
               <button
                 key={qr._id || index}
                 onClick={() => setLightboxUrl(qr.imageUrl)}
-                className="group bg-white rounded-2xl border border-gray-100 shadow-lg shadow-gray-200/30 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 p-4 flex flex-col items-center gap-2"
+                className="group relative overflow-hidden rounded-2xl bg-gray-100 shadow-lg shadow-gray-200/30 aspect-square"
                 data-reveal
               >
-                <div className="w-full aspect-square max-w-[160px] mx-auto">
-                  <img
-                    src={qr.imageUrl}
-                    alt={qr.label || "Payment QR"}
-                    className="w-full h-full object-contain"
-                    loading="lazy"
-                  />
-                </div>
+                <img
+                  src={qr.imageUrl}
+                  alt={qr.label || "Payment QR"}
+                  className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
+                  loading="lazy"
+                />
                 {qr.label && (
-                  <span className="text-sm font-bold text-gray-700">{qr.label}</span>
+                  <div
+                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-400 flex items-end p-6"
+                    style={{
+                      background: `linear-gradient(to top, ${accentColor}e0, transparent)`,
+                    }}
+                  >
+                    <span className="text-white text-base font-bold">
+                      {qr.label}
+                    </span>
+                  </div>
                 )}
               </button>
             ))}
