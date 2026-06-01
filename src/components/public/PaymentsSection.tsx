@@ -42,7 +42,7 @@ export function PaymentsSection({ payments, accentColor }: PaymentsSectionProps)
               <button
                 key={qr._id || index}
                 onClick={() => setLightboxUrl(qr.imageUrl)}
-                className="group relative overflow-hidden rounded-2xl bg-gray-100 shadow-lg shadow-gray-200/30 aspect-square"
+                className="group relative overflow-hidden rounded-2xl bg-gray-100 shadow-lg shadow-gray-200/30 aspect-square max-w-[240px] mx-auto w-full"
                 data-reveal
               >
                 <img
