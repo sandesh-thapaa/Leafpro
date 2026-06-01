@@ -49,9 +49,7 @@ export async function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
-  const token =
-    request.cookies.get(AUTH.COOKIE_NAME)?.value ??
-    request.headers.get("Authorization")?.replace("Bearer ", "");
+  const token = request.cookies.get(AUTH.COOKIE_NAME)?.value;
 
   if (!token) {
     if (isApiRoute) {

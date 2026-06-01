@@ -67,7 +67,7 @@ export default function AdminPage() {
       const data = await res.json();
       if (!data.success) { showToast(data.error || "Failed", "error"); return; }
       showToast(`Tenant ${status === "active" ? "activated" : "suspended"}`, "success");
-      fetchTenants();
+      fetchTenants(searchQuery, statusFilter);
     } catch { showToast("Failed", "error"); }
     finally { setActionLoading(null); }
   };
@@ -82,7 +82,7 @@ export default function AdminPage() {
       const data = await res.json();
       if (!data.success) { showToast(data.error || "Failed", "error"); return; }
       showToast("Tenant permanently deleted", "success");
-      fetchTenants();
+      fetchTenants(searchQuery, statusFilter);
     } catch { showToast("Failed", "error"); }
     finally { setActionLoading(null); }
   };
@@ -95,11 +95,11 @@ export default function AdminPage() {
     } catch {}
   }, []);
 
-  const fetchTenants = useCallback(async () => {
+  const fetchTenants = useCallback(async (query?: string, status?: string) => {
     try {
       const params = new URLSearchParams();
-      if (searchQuery) params.set("search", searchQuery);
-      if (statusFilter !== "all") params.set("status", statusFilter);
+      if (query) params.set("search", query);
+      if (status && status !== "all") params.set("status", status);
 
       const res = await fetch(`/api/v1/dashboard/admin/tenants?${params.toString()}`);
       if (res.status === 403) { setIsAuthorized(false); return; }
@@ -110,10 +110,10 @@ export default function AdminPage() {
     } finally {
       setIsLoading(false);
     }
-  }, [showToast, searchQuery, statusFilter]);
+  }, [showToast]);
 
   useEffect(() => {
-    fetchTenants();
+    fetchTenants("", "all");
     fetchResetRequests();
   }, [fetchTenants, fetchResetRequests]);
 
@@ -141,7 +141,7 @@ export default function AdminPage() {
       );
       setShowForm(false);
       setFormData({ name: "", phone: "", password: "" });
-      fetchTenants();
+      fetchTenants(searchQuery, statusFilter);
     } catch {
       showToast("Failed to create tenant", "error");
     } finally {
@@ -270,7 +270,7 @@ export default function AdminPage() {
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            onKeyDown={(e) => { if (e.key === "Enter") { setIsLoading(true); fetchTenants(); } }}
+            onKeyDown={(e) => { if (e.key === "Enter") { setIsLoading(true); fetchTenants(searchQuery, statusFilter); } }}
             placeholder="Search by name or phone..."
             className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-200 bg-white text-gray-900 placeholder-gray-400 text-sm focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/20 transition-colors"
           />
@@ -279,7 +279,7 @@ export default function AdminPage() {
           {["all", "active", "suspended"].map((f) => (
             <button
               key={f}
-              onClick={() => { setStatusFilter(f); setIsLoading(true); }}
+              onClick={() => { setStatusFilter(f); setIsLoading(true); fetchTenants(searchQuery, f); }}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-all capitalize ${
                 statusFilter === f
                   ? "bg-accent text-white shadow-sm"

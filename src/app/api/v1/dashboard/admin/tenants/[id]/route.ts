@@ -22,7 +22,7 @@ export async function DELETE(
 
     await connectDB();
 
-    const tenant = await TenantBusiness.findById(id).select("galleryAssets slug name");
+    const tenant = await TenantBusiness.findById(id).select("galleryAssets payments slug name");
     if (!tenant) {
       return errorResponse("Tenant not found", 404);
     }
@@ -33,6 +33,15 @@ export async function DELETE(
         await deleteFromCloudinary(asset.assetUrl);
       } catch (err) {
         console.warn(`Failed to delete Cloudinary asset: ${asset.assetUrl}`, err);
+      }
+    }
+
+    const paymentAssets = ((tenant as any).payments || []) as any[];
+    for (const payment of paymentAssets) {
+      try {
+        if (payment.imageUrl) await deleteFromCloudinary(payment.imageUrl);
+      } catch (err) {
+        console.warn(`Failed to delete Cloudinary payment QR: ${payment.imageUrl}`, err);
       }
     }
 

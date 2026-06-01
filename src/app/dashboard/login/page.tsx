@@ -6,11 +6,11 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { useToast } from "@/components/ui/Toast";
-import { AUTH, APP_NAME, LEAFFPRO_WHATSAPP } from "@/lib/constants";
+import { AUTH, APP_NAME, LEAFPRO_WHATSAPP } from "@/lib/constants";
 import { MessageCircle, Leaf, Lock, Smartphone } from "lucide-react";
 
 const WHATSAPP_NUMBER =
-  process.env.NEXT_PUBLIC_LEAFPRO_WHATSAPP || LEAFFPRO_WHATSAPP;
+  process.env.NEXT_PUBLIC_LEAFPRO_WHATSAPP || LEAFPRO_WHATSAPP;
 
 export default function LoginPage() {
   const router = useRouter();
@@ -20,9 +20,9 @@ export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    if (document.cookie.includes(`${AUTH.COOKIE_NAME}=`)) {
-      router.replace("/dashboard");
-    }
+    fetch("/api/v1/dashboard/profile")
+      .then(res => { if (res.ok) router.replace("/dashboard"); })
+      .catch(() => {});
   }, [router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -44,10 +44,6 @@ export default function LoginPage() {
         return;
       }
 
-      const token = data.data.token;
-
-      document.cookie = `${AUTH.COOKIE_NAME}=${token}; SameSite=Lax; Path=/; Max-Age=${AUTH.SESSION_DURATION_SECONDS}`;
-
       const isSuperadmin = data.data.role === "superadmin";
       const target = isSuperadmin
         ? "/dashboard/admin"
@@ -55,9 +51,7 @@ export default function LoginPage() {
         ? "/dashboard/setup"
         : "/dashboard";
 
-      await new Promise((r) => setTimeout(r, 100));
-
-      window.location.href = target;
+      router.replace(target);
     } catch {
       showToast("Login failed. Please try again.", "error");
       setIsLoading(false);

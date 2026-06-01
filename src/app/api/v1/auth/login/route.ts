@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
 import { TenantAuth } from "@/lib/models/TenantAuth";
 import { TenantBusiness } from "@/lib/models/TenantBusiness";
-import { comparePassword, signJwt } from "@/lib/auth";
+import { comparePassword, signJwt, setAuthCookie } from "@/lib/auth";
 import { errorResponse } from "@/lib/api-response";
 import { AUTH } from "@/lib/constants";
 
@@ -91,7 +91,6 @@ export async function POST(request: NextRequest) {
     const body = JSON.stringify({
       success: true,
       data: {
-        token,
         resetRequired: authRecord.passwordResetEnforced,
         businessName: business.name,
         slug: business.slug,
@@ -111,13 +110,7 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    response.cookies.set(AUTH.COOKIE_NAME, token, {
-      httpOnly: false,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
-      maxAge: AUTH.SESSION_DURATION_SECONDS,
-      path: "/",
-    });
+    await setAuthCookie(token);
 
     return response;
   } catch (error) {

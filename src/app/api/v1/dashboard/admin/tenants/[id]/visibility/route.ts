@@ -35,10 +35,11 @@ export async function PATCH(
       enabled: !hidden,
     })) || [];
 
-    await TenantBusiness.updateOne(
+    const result = await TenantBusiness.updateOne(
       { _id: id },
       { $set: { sections } }
     );
+    if (result.matchedCount === 0) return errorResponse("Tenant not found", 404);
 
     return successResponse({
       message: hidden ? "Content hidden" : "Content unhidden",

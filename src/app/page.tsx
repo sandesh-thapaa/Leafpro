@@ -7,11 +7,11 @@ import {
   Plus,
   Minus,
 } from "lucide-react";
-import { APP_NAME, LEAFFPRO_WHATSAPP, AUTH } from "@/lib/constants";
+import { APP_NAME, LEAFPRO_WHATSAPP, AUTH } from "@/lib/constants";
 import { CustomerShowcase } from "@/components/public/CustomerShowcase";
 
 const WHATSAPP_NUMBER =
-  process.env.NEXT_PUBLIC_LEAFPRO_WHATSAPP || LEAFFPRO_WHATSAPP;
+  process.env.NEXT_PUBLIC_LEAFPRO_WHATSAPP || LEAFPRO_WHATSAPP;
 const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER.replace(/[^0-9]/g, "")}?text=${encodeURIComponent("Hi Leafpro, I want to create a website for: My Business")}`;
 
 const COORDS = "27.7172° N · 85.3240° E";

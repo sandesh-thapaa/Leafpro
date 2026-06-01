@@ -107,7 +107,7 @@ export function TenantPageClient({ tenant }: TenantPageClientProps) {
     const type = section.sectionType as SectionType;
     const layout = section.layout;
 
-    const sectionId = type;
+    const sectionId = section._id ? `${type}-${section._id}` : `${type}-${section.order}`;
 
     switch (type) {
       case "hero":

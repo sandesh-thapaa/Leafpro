@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 import { Input } from "@/components/ui/Input";
 import { ImageIcon, Trash2, Loader2 } from "lucide-react";
 import { useToast } from "@/components/ui/Toast";
@@ -15,6 +15,8 @@ export function PaymentsEditor({ payments, onChange }: PaymentsEditorProps) {
   const { showToast } = useToast();
   const [deletingIds, setDeletingIds] = useState<Set<string>>(new Set());
   const [uploading, setUploading] = useState(false);
+  const paymentsRef = useRef(payments);
+  paymentsRef.current = payments;
 
   const handleUpload = useCallback(
     async (file: File) => {
@@ -37,7 +39,7 @@ export function PaymentsEditor({ payments, onChange }: PaymentsEditorProps) {
           order: Date.now(),
         };
         if (result.data.assetId) newQr._id = result.data.assetId;
-        onChange([...payments, newQr]);
+        onChange([...paymentsRef.current, newQr]);
         showToast("QR code added", "success");
       } catch {
         showToast("Upload failed", "error");
@@ -45,7 +47,7 @@ export function PaymentsEditor({ payments, onChange }: PaymentsEditorProps) {
         setUploading(false);
       }
     },
-    [payments, onChange, showToast]
+    [onChange, showToast]
   );
 
   const handleDelete = async (assetId: string) => {
@@ -59,7 +61,7 @@ export function PaymentsEditor({ payments, onChange }: PaymentsEditorProps) {
         showToast(data.error || "Delete failed", "error");
         return;
       }
-      onChange(payments.filter((p) => p._id !== assetId));
+      onChange(paymentsRef.current.filter((p) => p._id !== assetId));
       showToast("QR code removed", "success");
     } catch {
       showToast("Delete failed", "error");

@@ -37,7 +37,7 @@ function getDefaultSections(data: TenantData): PageSectionConfig[] {
     sectionType: "hero",
     enabled: true,
     order: order++,
-    layout: data.heroBlock.bannerImageUrl ? "split-right" : "centered",
+    layout: data.heroBlock?.bannerImageUrl ? "split-right" : "centered",
   });
 
   sections.push({
@@ -131,6 +131,7 @@ export function PageBuilder({ tenant, onSave }: PageBuilderProps) {
     setData((prev) => ({
       ...prev,
       name: tenant.name,
+      slug: tenant.slug,
       aboutDescription: tenant.aboutDescription,
       aboutImageUrl: tenant.aboutImageUrl ?? "",
       services: tenant.services,
@@ -276,7 +277,7 @@ export function PageBuilder({ tenant, onSave }: PageBuilderProps) {
       order: maxOrder + 1,
       layout:
         type === "hero"
-          ? data.heroBlock.bannerImageUrl
+          ? data.heroBlock?.bannerImageUrl
             ? "split-right"
             : "centered"
           : type === "about"
@@ -301,10 +302,10 @@ export function PageBuilder({ tenant, onSave }: PageBuilderProps) {
       const body: Record<string, unknown> = {
         name: data.name,
         heroBlock: {
-          mainTitle: data.heroBlock.mainTitle,
-          subHeadline: data.heroBlock.subHeadline,
-          bannerImageUrl: data.heroBlock.bannerImageUrl,
-          ctaText: data.heroBlock.ctaText,
+          mainTitle: data.heroBlock?.mainTitle ?? "",
+          subHeadline: data.heroBlock?.subHeadline ?? "",
+          bannerImageUrl: data.heroBlock?.bannerImageUrl ?? "",
+          ctaText: data.heroBlock?.ctaText ?? "",
         },
         aboutDescription: data.aboutDescription,
         aboutImageUrl: data.aboutImageUrl,

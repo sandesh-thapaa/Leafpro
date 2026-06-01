@@ -6,6 +6,13 @@ import { hashPassword } from "@/lib/auth";
 import { generateUniqueSlug } from "@/lib/slug";
 
 export async function POST() {
+  if (process.env.NODE_ENV === "production") {
+    return NextResponse.json(
+      { success: false, error: "Not available in production" },
+      { status: 404 }
+    );
+  }
+
   try {
     await connectDB();
 

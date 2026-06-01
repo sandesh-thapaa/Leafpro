@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 import { Input } from "@/components/ui/Input";
 import { ImageIcon, Trash2, Loader2, RotateCcw } from "lucide-react";
 import { useToast } from "@/components/ui/Toast";
@@ -17,6 +17,8 @@ export function GalleryEditor({ assets, onChange, onRefresh }: GalleryEditorProp
   const [deletingIds, setDeletingIds] = useState<Set<string>>(new Set());
   const [uploading, setUploading] = useState(false);
   const [replacingId, setReplacingId] = useState<string | null>(null);
+  const assetsRef = useRef(assets);
+  assetsRef.current = assets;
 
   const handleUpload = useCallback(
     async (file: File) => {
@@ -41,7 +43,7 @@ export function GalleryEditor({ assets, onChange, onRefresh }: GalleryEditorProp
           uploadedAt: new Date().toISOString(),
         };
         if (result.data.assetId) newAsset._id = result.data.assetId;
-        onChange([...assets, newAsset]);
+        onChange([...assetsRef.current, newAsset]);
         showToast("Image added to gallery", "success");
         onRefresh();
       } catch {
@@ -50,7 +52,7 @@ export function GalleryEditor({ assets, onChange, onRefresh }: GalleryEditorProp
         setUploading(false);
       }
     },
-    [assets, onChange, onRefresh, showToast]
+    [onChange, onRefresh, showToast]
   );
 
   const handleReplace = async (oldAssetId: string, file: File) => {
@@ -82,7 +84,7 @@ export function GalleryEditor({ assets, onChange, onRefresh }: GalleryEditorProp
         uploadedAt: new Date().toISOString(),
       };
       if (result.data.assetId) replacedAsset._id = result.data.assetId;
-      onChange(assets.map((a) => (a._id === oldAssetId ? replacedAsset : a)));
+      onChange(assetsRef.current.map((a) => (a._id === oldAssetId ? replacedAsset : a)));
       showToast("Image replaced", "success");
       onRefresh();
     } catch {
@@ -103,7 +105,7 @@ export function GalleryEditor({ assets, onChange, onRefresh }: GalleryEditorProp
         showToast(data.error || "Delete failed", "error");
         return;
       }
-      onChange(assets.filter((a) => a._id !== assetId));
+      onChange(assetsRef.current.filter((a) => a._id !== assetId));
       showToast("Image removed", "success");
       onRefresh();
     } catch {

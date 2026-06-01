@@ -53,6 +53,7 @@ export const SECTION_TYPES = [
   "services",
   "gallery",
   "products",
+  "payments",
   "contact",
   "text",
 ] as const;
@@ -63,6 +64,7 @@ export const SECTION_DEFAULTS: Record<string, string> = {
   services: "grid",
   gallery: "grid-3",
   products: "grid",
+  payments: "grid",
   contact: "cards",
   text: "default",
 };
@@ -88,4 +90,4 @@ export const CTA_OPTIONS = [
 
 export const NEPALI_PHONE_REGEX = /^97798[0-9]{8}$/;
 
-export const LEAFFPRO_WHATSAPP = "9779812345678";
+export const LEAFPRO_WHATSAPP = "9779812345678";

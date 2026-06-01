@@ -5,6 +5,13 @@ import { TenantAuth } from "@/lib/models/TenantAuth";
 import { hashPassword } from "@/lib/auth";
 
 export async function POST() {
+  if (process.env.NODE_ENV === "production") {
+    return NextResponse.json(
+      { success: false, error: "Not available in production" },
+      { status: 404 }
+    );
+  }
+
   try {
     await connectDB();
 
