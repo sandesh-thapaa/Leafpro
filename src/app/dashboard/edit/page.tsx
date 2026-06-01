@@ -1,11 +1,13 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { PageBuilder } from "@/components/dashboard/PageBuilder";
 import { PageSpinner } from "@/components/ui/Spinner";
 import type { TenantData } from "@/types/tenant";
 
 export default function EditPage() {
+  const router = useRouter();
   const [tenant, setTenant] = useState<TenantData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -14,6 +16,10 @@ export default function EditPage() {
       const res = await fetch("/api/v1/dashboard/profile");
       const data = await res.json();
       if (data.success) {
+        if (data.data.role === "superadmin") {
+          router.replace("/dashboard/admin");
+          return;
+        }
         setTenant(data.data);
       }
     } catch (err) {
@@ -25,7 +31,7 @@ export default function EditPage() {
 
   useEffect(() => {
     fetchProfile();
-  }, []);
+  }, [router]);
 
   if (isLoading) return <PageSpinner />;
   if (!tenant)

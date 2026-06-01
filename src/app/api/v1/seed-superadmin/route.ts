@@ -25,6 +25,7 @@ export async function POST() {
       name: "Leafpro Admin Panel",
       slug,
       contactPhone: "0000000000",
+      accountStatus: "suspended",
     });
 
     const hashed = await hashPassword("superadmin");

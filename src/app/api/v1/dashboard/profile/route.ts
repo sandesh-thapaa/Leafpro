@@ -26,7 +26,7 @@ export async function GET() {
       return errorResponse("Tenant not found", 404);
     }
 
-    return successResponse(tenant);
+    return successResponse({ ...tenant, role: user.role });
   } catch (error) {
     console.error("Profile fetch error:", error);
     return errorResponse("Internal server error", 500);
