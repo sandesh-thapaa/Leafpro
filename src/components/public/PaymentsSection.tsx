@@ -35,7 +35,7 @@ export function PaymentsSection({ payments, accentColor }: PaymentsSectionProps)
           </h2>
         </div>
 
-        <div className={`${payments.length === 1 ? "flex justify-center" : "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"} gap-6 max-w-4xl mx-auto`}>
+        <div className={`${payments.length >= 3 ? "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4" : "flex flex-wrap justify-center"} gap-6 max-w-4xl mx-auto`}>
           {payments
             .sort((a, b) => a.order - b.order)
             .map((qr, index) => (
