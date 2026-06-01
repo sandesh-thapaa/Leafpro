@@ -21,7 +21,7 @@ export async function DELETE(
 
     const tenant = await TenantBusiness.findOne({
       _id: user.businessId,
-    }).select("galleryAssets");
+    }).select("galleryAssets payments");
 
     if (!tenant) {
       return errorResponse("Tenant not found", 404);
@@ -31,15 +31,27 @@ export async function DELETE(
       (a) => a._id?.toString() === assetId
     );
 
-    if (!asset) {
+    if (asset) {
+      await deleteFromCloudinary(asset.assetUrl);
+      await TenantBusiness.updateOne(
+        { _id: user.businessId },
+        { $pull: { galleryAssets: { _id: assetId } } }
+      );
+      return successResponse({ message: "Asset deleted successfully" });
+    }
+
+    const payment = tenant.payments.find(
+      (p) => p._id?.toString() === assetId
+    );
+
+    if (!payment) {
       return errorResponse("Asset not found", 404);
     }
 
-    await deleteFromCloudinary(asset.assetUrl);
-
+    await deleteFromCloudinary(payment.imageUrl);
     await TenantBusiness.updateOne(
       { _id: user.businessId },
-      { $pull: { galleryAssets: { _id: assetId } } }
+      { $pull: { payments: { _id: assetId } } }
     );
 
     return successResponse({ message: "Asset deleted successfully" });

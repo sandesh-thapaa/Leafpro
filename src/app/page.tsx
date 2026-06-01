@@ -203,13 +203,13 @@ export default function LandingPage() {
       >
         <nav className="max-w-6xl mx-auto px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            <a href="/" className="flex items-center gap-4">
+            <a href="/" className="flex items-center gap-2">
               <img
                 src="/Logo.png"
                 alt={APP_NAME}
                 className="h-10 w-auto rounded-md"
               />
-              <span className="text-base font-semibold tracking-tight text-ink">
+              <span className="text-lg font-bold tracking-tight text-ink">
                 {APP_NAME}
               </span>
             </a>
@@ -566,7 +566,7 @@ export default function LandingPage() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
             <div>
               <div className="flex items-center gap-3 mb-4">
-                <img src="/Logo.png" alt={APP_NAME} className="h-10 w-auto rounded brightness-0 invert" />
+                <img src="/Logo.png" alt={APP_NAME} className="h-10 w-auto rounded" style={{ filter: "brightness(0) invert(1)" }} />
                 <span className="text-lg font-semibold tracking-tight text-white">{APP_NAME}</span>
               </div>
               <p className="text-base text-white/50 leading-relaxed max-w-xs">
