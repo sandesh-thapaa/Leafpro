@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { Button } from "@/components/ui/Button";
 import { useToast } from "@/components/ui/Toast";
 import { HeroEditor } from "./sections/HeroEditor";
@@ -115,6 +115,28 @@ export function PageBuilder({ tenant, onSave }: PageBuilderProps) {
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [isSaving, setIsSaving] = useState(false);
   const [deleteConfirm, setDeleteConfirm] = useState<{ id: string; label: string } | null>(null);
+
+  useEffect(() => {
+    setData((prev) => ({
+      ...prev,
+      name: tenant.name,
+      aboutDescription: tenant.aboutDescription,
+      aboutImageUrl: tenant.aboutImageUrl ?? "",
+      services: tenant.services,
+      products: tenant.products,
+      galleryAssets: tenant.galleryAssets,
+      customTexts: tenant.customTexts,
+      heroBlock: tenant.heroBlock,
+      routingEndpoints: tenant.routingEndpoints,
+    }));
+    if (tenant.sections && tenant.sections.length > 0) {
+      setSections(
+        tenant.sections
+          .filter((s) => s.sectionType)
+          .sort((a, b) => a.order - b.order)
+      );
+    }
+  }, [tenant]);
 
   const currentSections = sections.filter((s) => s.sectionType);
 

@@ -301,11 +301,11 @@ export default function AdminPage() {
         <div className="space-y-2">
           {tenants.map((tenant) => (
             <div key={tenant._id} className="bg-white border border-gray-200 rounded-lg p-4 hover:border-gray-300 transition-colors">
-              <div className="flex items-center justify-between flex-wrap gap-3">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-semibold text-gray-900 truncate">{tenant.name}</span>
-                    <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
+                    <span className={`text-xs px-2 py-0.5 rounded-full font-medium shrink-0 ${
                       tenant.accountStatus === "active"
                         ? "bg-green-100 text-green-700"
                         : "bg-red-100 text-red-700"
@@ -313,10 +313,10 @@ export default function AdminPage() {
                       {tenant.accountStatus}
                     </span>
                     {tenant.role === "superadmin" && (
-                      <span className="text-xs px-2 py-0.5 rounded-full bg-purple-100 text-purple-700 font-medium">superadmin</span>
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-purple-100 text-purple-700 font-medium shrink-0">superadmin</span>
                     )}
                   </div>
-                  <div className="flex items-center gap-3 mt-1 text-xs text-gray-500">
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-0.5 mt-1 text-xs text-gray-500">
                     <span>{tenant.phone}</span>
                     <span className="text-gray-300">/</span>
                     <span>{tenant.slug}</span>
@@ -324,13 +324,13 @@ export default function AdminPage() {
                     <span>{tenant.pageViewCount} views</span>
                     <span>{tenant.galleryCount} images</span>
                   </div>
-                  <div className="flex items-center gap-3 mt-0.5 text-xs text-gray-400">
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-0.5 mt-0.5 text-xs text-gray-400">
                     <span>Created: {new Date(tenant.createdAt).toLocaleDateString()}</span>
                     {tenant.updatedAt && <span>Updated: {new Date(tenant.updatedAt).toLocaleDateString()}</span>}
                   </div>
                 </div>
 
-                <div className="flex items-center gap-1 flex-wrap">
+                <div className="flex items-center gap-1 flex-wrap self-end sm:self-center">
                   <a href={`/${tenant.slug}`} target="_blank" rel="noopener noreferrer"
                     className="p-2 rounded-lg text-gray-400 hover:text-accent hover:bg-accent/5 transition-all" title="View page">
                     <ExternalLink className="h-4 w-4" />

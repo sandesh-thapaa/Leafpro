@@ -28,11 +28,20 @@ export function GalleryEditor({ assets, onChange, onRefresh }: GalleryEditorProp
           method: "POST",
           body: formData,
         });
-        const data = await res.json();
-        if (!data.success) {
-          showToast(data.error || "Upload failed", "error");
+        const result = await res.json();
+        if (!result.success) {
+          showToast(result.error || "Upload failed", "error");
           return;
         }
+        const newAsset: GalleryAsset = {
+          assetUrl: result.data.assetUrl,
+          thumbnailUrl: result.data.thumbnailUrl,
+          assetCaption: "",
+          assetOrder: Date.now(),
+          uploadedAt: new Date().toISOString(),
+        };
+        if (result.data.assetId) newAsset._id = result.data.assetId;
+        onChange([...assets, newAsset]);
         showToast("Image added to gallery", "success");
         onRefresh();
       } catch {
@@ -41,7 +50,7 @@ export function GalleryEditor({ assets, onChange, onRefresh }: GalleryEditorProp
         setUploading(false);
       }
     },
-    [onRefresh, showToast]
+    [assets, onChange, onRefresh, showToast]
   );
 
   const handleReplace = async (oldAssetId: string, file: File) => {
@@ -53,9 +62,9 @@ export function GalleryEditor({ assets, onChange, onRefresh }: GalleryEditorProp
         method: "POST",
         body: formData,
       });
-      const data = await res.json();
-      if (!data.success) {
-        showToast(data.error || "Upload failed", "error");
+      const result = await res.json();
+      if (!result.success) {
+        showToast(result.error || "Upload failed", "error");
         return;
       }
       const delRes = await fetch(`/api/v1/dashboard/media/${oldAssetId}`, {
@@ -65,6 +74,15 @@ export function GalleryEditor({ assets, onChange, onRefresh }: GalleryEditorProp
       if (!delData.success) {
         showToast("New image uploaded but old one could not be removed", "warning");
       }
+      const replacedAsset: GalleryAsset = {
+        assetUrl: result.data.assetUrl,
+        thumbnailUrl: result.data.thumbnailUrl,
+        assetCaption: "",
+        assetOrder: Date.now(),
+        uploadedAt: new Date().toISOString(),
+      };
+      if (result.data.assetId) replacedAsset._id = result.data.assetId;
+      onChange(assets.map((a) => (a._id === oldAssetId ? replacedAsset : a)));
       showToast("Image replaced", "success");
       onRefresh();
     } catch {
@@ -85,6 +103,7 @@ export function GalleryEditor({ assets, onChange, onRefresh }: GalleryEditorProp
         showToast(data.error || "Delete failed", "error");
         return;
       }
+      onChange(assets.filter((a) => a._id !== assetId));
       showToast("Image removed", "success");
       onRefresh();
     } catch {
