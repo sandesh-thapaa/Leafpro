@@ -474,33 +474,35 @@ export function ContactSection({
             )}
           </div>
 
-          <div className="rounded-2xl overflow-hidden border border-gray-200 shadow-2xl h-[350px] md:h-[500px]">
-            <iframe
-              src={googleMapsUrl}
-              width="100%"
-              height="100%"
-              style={{ border: 0 }}
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="Business Location"
-            />
-          </div>
-
-          {googleReviewUrl && (
-            <div className="mt-6 text-center">
-              <a
-                href={googleReviewUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5"
-                style={{ backgroundColor: `${accentColor}12`, color: accentColor }}
-              >
-                <Star className="h-4 w-4" />
-                Give a Review
-              </a>
+          <div>
+            <div className="rounded-2xl overflow-hidden border border-gray-200 shadow-2xl h-[350px] md:h-[500px]">
+              <iframe
+                src={googleMapsUrl}
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Business Location"
+              />
             </div>
-          )}
+
+            {googleReviewUrl && (
+              <div className="mt-6 text-center">
+                <a
+                  href={googleReviewUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5"
+                  style={{ backgroundColor: `${accentColor}12`, color: accentColor }}
+                >
+                  <Star className="h-4 w-4" />
+                  Give a Review
+                </a>
+              </div>
+            )}
+          </div>
         </div>
 
         {hasVideo && (
