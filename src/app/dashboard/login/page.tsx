@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { useToast } from "@/components/ui/Toast";
@@ -12,10 +13,17 @@ const WHATSAPP_NUMBER =
   process.env.NEXT_PUBLIC_LEAFPRO_WHATSAPP || LEAFFPRO_WHATSAPP;
 
 export default function LoginPage() {
+  const router = useRouter();
   const { showToast } = useToast();
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (document.cookie.includes(`${AUTH.COOKIE_NAME}=`)) {
+      router.replace("/dashboard");
+    }
+  }, [router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
