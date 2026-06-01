@@ -22,7 +22,10 @@ export async function POST(request: NextRequest) {
 
     await connectDB();
 
-    const authRecord = await TenantAuth.findById(userId);
+    let authRecord = await TenantAuth.findById(userId);
+    if (!authRecord) {
+      authRecord = await TenantAuth.findOne({ associatedBusinessId: userId });
+    }
     if (!authRecord) {
       return errorResponse("User not found", 404);
     }
